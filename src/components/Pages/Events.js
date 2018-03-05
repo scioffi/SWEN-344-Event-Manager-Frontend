@@ -1,44 +1,64 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class Events extends React.Component {
 	constructor(props){
 		super(props);
 
 		this.state = {
-			
+			fetching: true,
+			events: {}
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		fetch("http://localhost:8080/api/getEvents", {
 			method: "get"
 		})
+		.then((res) => res.json())
 		.then((response) => {
-			console.log(response.json());
+			console.log(response);
+			this.setState({
+				fetching: false,
+				events: response
+			});
 		})
 		.catch((error) => {
 			console.error(error);
+			// Should probably do some real error handling LOL
 		});
 	}
 
 	render() {
-		return (
-			<div>
-				<div className="well well-lg">
-					<h3>Spring Fest!</h3>
-					<p>RIT SpringFest, sponsored by the College Activities Board (CAB) is RIT's annual student
-						celebration of...</p>
-					<br/>
-					<p><a className="btn btn-default" href="/Event" role="button">View details &raquo;</a></p>
+		if (this.state.fetching === true){
+			return (
+				<div>
+					<h1>Loading Events...</h1>
 				</div>
-				<div className="well well-lg">
-					<h3>Trip to the Planetarium</h3>
-					<p>See the Led Zeppelin laser show at the Planetarium the night of Saturday March 24th.</p>
-					<br/>
-					<p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+			);
+		} else {
+			return (
+				<div>
+					{this.state.events.map((event, index) => {
+						return (
+							<div className="row" key={index}>
+								<div className="col-md-12">
+									<div className="panel panel-default">
+										<div className="panel-heading">
+											<h1 className="panel-title">{event.title}</h1>
+										</div>
+										<div className="panel-body">
+											<p>{event.description}</p>
+											<Link to={"/Event/" + event.id} className="btn btn-default" role="button">View Details &raquo;</Link>
+										</div>
+									</div>
+								</div>
+							</div>
+						)
+					})}
 				</div>
-			</div>
-		);
+			);
+		}
 	}
 }
 
