@@ -49,7 +49,7 @@ class Events extends React.Component {
 										</div>
 										<div className="panel-body">
 											<p>{event.description}</p>
-											<Link to={"/Event/" + event.id} className="btn btn-default" role="button">View Details &raquo;</Link>
+											<Link to={"/Event/" + event.eventId} className="btn btn-default" role="button">View Details &raquo;</Link>
 										</div>
 									</div>
 								</div>
