@@ -10,7 +10,6 @@ class Event extends React.Component {
 		//window.alert(this.props.match.params.eventId);
 	}
 	componentDidMount() {
-
 		const url = "http://localhost:8080/api/getEvent?eventId=" + this.props.match.params.eventId;
 		fetch(url, {
 			method: "get"
@@ -27,6 +26,9 @@ class Event extends React.Component {
 			console.error(error);
 			// Should probably do some real error handling LOL
 		});
+	}
+
+	componentWillMount(){
 		try {
 			window.twttr.widgets.load();
 		} catch(e) {
@@ -42,6 +44,8 @@ class Event extends React.Component {
 				</div>
 			);
 		} else {
+			const newurl = "https://twitter.com/hashtag/" + this.state.event.hashtag;
+			console.log(newurl);
 			return (
 				<div>
 					<div className="container">
@@ -62,7 +66,7 @@ class Event extends React.Component {
 									Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus
 									commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
 								<p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-								<a className="twitter-timeline" href="https://twitter.com/hashtag/RIT" data-widget-id="968341462571274242">#RIT Tweets</a>
+								<a className="twitter-timeline" href={newurl} data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
 						</div>
 					</div>
