@@ -13,7 +13,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route path="/Event" component={Event} />
+            <Route path="/Event/:eventId" component={Event} />
             <Route path="/EventList" component={ListOfEvents} />
             <Route path="/CreateEvent" component={CreateEvent} />
             <Route path="/EditEvent" component={EditEvent} />
