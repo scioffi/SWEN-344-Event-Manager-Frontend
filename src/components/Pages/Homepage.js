@@ -1,5 +1,4 @@
 import React from "react";
-import logo from '../../images/logo.svg';
 import moon from '../../images/moon.jpg';
 import SpringFest from '../../images/SpringFest.jpg';
 import {Glyphicon} from "react-bootstrap";
@@ -31,7 +30,7 @@ class Homepage extends React.Component {
                       </div>
                   </div>
                   <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-                      <Glyphicon glyh="glyphicon glyphicon-chevron-left" />
+                      <Glyphicon glyph="chevron-left" />
                       <span className="sr-only">Previous</span>
                   </a>
                   <a className="right carousel-control" href="#myCarousel" data-slide="next">

@@ -15,7 +15,7 @@ class Header extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <Link to="/"><img src={ritLogo} className="navbar-brand" /></Link>
+                            <Link to="/"><img src={ritLogo} className="navbar-brand" alt="RIT" /></Link>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav">
