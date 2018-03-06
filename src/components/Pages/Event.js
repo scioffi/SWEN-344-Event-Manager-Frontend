@@ -5,7 +5,7 @@ class Event extends React.Component {
 		super(props);
 		this.state = {
 			fetching: true,
-			events: {}
+			event: {}
 		}
 		//window.alert(this.props.match.params.eventId);
 	}
@@ -20,7 +20,7 @@ class Event extends React.Component {
 			console.log(response);
 			this.setState({
 				fetching: false,
-				events: response
+				event: response
 			});
 		})
 		.catch((error) => {
@@ -47,14 +47,14 @@ class Event extends React.Component {
 					<div className="container">
 						<div className="row">
 							<div className="col-md-4">
-								<h2>{this.state.event.title}</h2>
+								<h2></h2>
 								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
 									commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
 									porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
 								<p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
 							</div>
 							<div className="col-md-8">
-								<h2>Heading</h2>
+								<h2>{this.state.event.title}</h2>
 								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
 									commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam
 									porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
