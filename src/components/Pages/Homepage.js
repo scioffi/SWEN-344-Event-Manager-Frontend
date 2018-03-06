@@ -31,7 +31,7 @@ class Homepage extends React.Component {
                       </div>
                   </div>
                   <a className="left carousel-control" href="#myCarousel" data-slide="prev">
-                      <Glyphicon glyh="glyphicon glyphicon-chevron-left" />
+                      <Glyphicon glyph="chevron-left" />
                       <span className="sr-only">Previous</span>
                   </a>
                   <a className="right carousel-control" href="#myCarousel" data-slide="next">

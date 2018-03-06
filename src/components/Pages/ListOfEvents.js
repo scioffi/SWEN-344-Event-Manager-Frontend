@@ -1,5 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {Glyphicon} from "react-bootstrap";
+import DateTime from "../utilities/DateTime";
 
 class ListOfEvents extends React.Component {
 	constructor(props){
@@ -40,21 +42,44 @@ class ListOfEvents extends React.Component {
 			return (
 				<div>
 					{this.state.events.map((event, index) => {
-						return (
-							<div className="row" key={index}>
-								<div className="col-md-12">
-									<div className="panel panel-default">
-										<div className="panel-heading">
-											<h1 className="panel-title">{event.title}</h1>
-										</div>
-										<div className="panel-body">
-											<p>{event.description}</p>
-											<Link to={"/Event/" + event.eventId} className="btn btn-default" role="button">View Details &raquo;</Link>
+						if (event.status === "open" ) {
+							return (
+								<div className="row" key={index}>
+									<div className="col-md-12">
+										<div className="panel panel-default">
+											<div className="panel-heading">
+												<h2>{event.title}</h2>
+												<h5><Glyphicon glyph="map-marker" /> {event.location}</h5>
+											</div>
+											<div className="panel-body">
+												<div className="row">
+													<div className="col-md-7">
+														<p>{event.description}</p>
+													</div>
+													<div className="col-md-5">
+														<dl className="dl-horizontal">
+															<dt>Price:</dt>
+															<dd>${event.price} USD</dd>
+
+															<dt>Start Time:</dt>
+															<dd><DateTime timestamp={event.startTime} /></dd>
+
+															<dt>End Time:</dt>
+															<dd><DateTime timestamp={event.endTime} /></dd>
+														</dl>
+													</div>
+												</div>
+												<div className="row">
+													<div className="col-md-12">
+														<Link to={"/Event/" + event.eventId} className="btn btn-default" role="button">View Details &raquo;</Link>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						)
+							)
+						}
 					})}
 				</div>
 			);
