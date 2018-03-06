@@ -23,12 +23,6 @@ class Header extends React.Component {
                                 <li><Link to="/EventList">Upcoming Events</Link></li>
                                 <li><Link to="/CreateEvent">Create an Event</Link></li>
                             </ul>
-                            <form className="navbar-form navbar-right">
-                                <div className="form-group">
-                                    <input type="text" placeholder="Search for an Event" className="form-control" />
-                                </div>
-                                <button type="submit" className="btn btn-success">Search</button>
-                            </form>
                         </div>
                     </div>
                 </nav>
