@@ -3,11 +3,13 @@ import React from "react";
 class Event extends React.Component {
 	constructor(props){
 		super(props);
-
-		window.alert(this.props.match.params.eventId);
 	}
 	componentDidMount() {
-		window.twttr.widgets.load();
+		try {
+			window.twttr.widgets.load();
+		} catch(e) {
+			console.warn(e);
+		}
 	}
 
 	render() {
