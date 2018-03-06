@@ -1,6 +1,7 @@
 import React from "react";
 import ritLogo from "../../images/rit-logo.png";
 import {Link} from "react-router-dom";
+import {Glyphicon} from "react-bootstrap";
 
 class Header extends React.Component {
     render() {
@@ -22,6 +23,7 @@ class Header extends React.Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/EventList">Upcoming Events</Link></li>
                                 <li><Link to="/CreateEvent">Create an Event</Link></li>
+                                <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                             </ul>
                         </div>
                     </div>

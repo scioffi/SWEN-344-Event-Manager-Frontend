@@ -60,7 +60,7 @@ class Event extends React.Component {
 								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.endTime}/> </h4>
 								
 								<a className="btn btn-default" href="#" role="button">Share Event &raquo;</a>
-
+								<br />
 								<a className="twitter-timeline" href={newurl} data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
 						</div>
