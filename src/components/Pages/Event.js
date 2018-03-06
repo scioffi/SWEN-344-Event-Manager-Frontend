@@ -58,6 +58,8 @@ class Event extends React.Component {
 								<h4> <Glyphicon glyph="map-marker"/> <b>Location:</b> {this.state.event.location}</h4>
 								<h4> <Glyphicon glyph="time"/> <b>Start Time:</b> <DateTime timestamp={this.state.event.startTime}/> </h4>
 								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.endTime}/> </h4>
+								
+								<a className="btn btn-default" href="#" role="button">Share Event &raquo;</a>
 
 								<a className="twitter-timeline" href={newurl} data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
