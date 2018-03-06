@@ -42,7 +42,7 @@ class ListOfEvents extends React.Component {
 			if (this.state.events.length > 0) {
 				return (
 					<div>
-						{this.state.events.map((event, index) => {
+						{this.state.events.map((event, index) => { // eslint-disable-line
 							if (event.status === "open") {
 								return (
 									<div className="row" key={index}>
@@ -89,7 +89,7 @@ class ListOfEvents extends React.Component {
 			} else {
 				return (
 					<div>
-						<h2 style={"text-align", "center"}>No Upcoming Events</h2>
+						<h2 style={{textAlign: "center"}}>No Upcoming Events</h2>
 					</div>
 				);
 			}

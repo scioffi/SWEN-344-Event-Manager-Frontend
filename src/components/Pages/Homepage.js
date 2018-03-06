@@ -1,5 +1,4 @@
 import React from "react";
-import logo from '../../images/logo.svg';
 import moon from '../../images/moon.jpg';
 import SpringFest from '../../images/SpringFest.jpg';
 import {Glyphicon} from "react-bootstrap";
