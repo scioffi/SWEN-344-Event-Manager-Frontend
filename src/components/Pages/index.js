@@ -14,6 +14,6 @@ export {
     CreateEvent,
     EditEvent,
     Order,
-    ListOfOrders
+    ListOfOrders,
     Messages
 };
