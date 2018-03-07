@@ -65,10 +65,10 @@ class ListOfEvents extends React.Component {
 																<dd>${event.price} USD</dd>
 
 																<dt>Start Time:</dt>
-																<dd><DateTime timestamp={event.startTime}/></dd>
+																<dd><DateTime timestamp={event.start_time}/></dd>
 
 																<dt>End Time:</dt>
-																<dd><DateTime timestamp={event.endTime}/></dd>
+																<dd><DateTime timestamp={event.end_time}/></dd>
 															</dl>
 														</div>
 													</div>
