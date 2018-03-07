@@ -25,6 +25,12 @@ class Header extends React.Component {
                                 <li><Link to="/CreateEvent">Create an Event</Link></li>
                                 <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                             </ul>
+                            <form className="navbar-form navbar-right">
+                                <div className="form-group">
+                                    <input type="text" placeholder="Search for an Event" className="form-control"></input>
+                                </div>
+                                <button type="submit" className="btn btn-success">Search</button>
+                            </form>
                         </div>
                     </div>
                 </nav>
