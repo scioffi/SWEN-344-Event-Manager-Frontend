@@ -14,7 +14,9 @@ class ListOfEvents extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch("http://localhost:8080/api/getEvents", {
+		const url = `${window.events.hostname}/api/getEvents`;
+
+		fetch(url, {
 			method: "get"
 		})
 		.then((res) => res.json())

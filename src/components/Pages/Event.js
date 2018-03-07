@@ -11,7 +11,8 @@ class Event extends React.Component {
 		}
 	}
 	componentDidMount() {
-		const url = "http://localhost:8080/api/getEvent?eventId=" + this.props.match.params.eventId;
+		const url = `${window.events.hostname}/api/getEvent?eventId=${this.props.match.params.eventId}`;
+
 		fetch(url, {
 			method: "get"
 		})
