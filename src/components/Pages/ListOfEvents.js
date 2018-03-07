@@ -14,7 +14,9 @@ class ListOfEvents extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch("http://localhost:8080/api/getEvents", {
+		const url = `${window.events.hostname}/api/getEvents`;
+
+		fetch(url, {
 			method: "get"
 		})
 		.then((res) => res.json())
@@ -63,10 +65,10 @@ class ListOfEvents extends React.Component {
 																<dd>${event.price} USD</dd>
 
 																<dt>Start Time:</dt>
-																<dd><DateTime timestamp={event.startTime}/></dd>
+																<dd><DateTime timestamp={event.start_time}/></dd>
 
 																<dt>End Time:</dt>
-																<dd><DateTime timestamp={event.endTime}/></dd>
+																<dd><DateTime timestamp={event.end_time}/></dd>
 															</dl>
 														</div>
 													</div>

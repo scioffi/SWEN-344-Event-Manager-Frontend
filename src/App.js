@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import {Homepage, Event, ListOfEvents, CreateEvent, EditEvent} from "./components/Pages";
+import {Homepage, Event, ListOfEvents, CreateEvent, EditEvent, Messages} from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
 import ritLogo from "./images/rit-logo.png";
@@ -27,7 +27,6 @@ class App extends Component {
           <img src={ritLogo} alt="RIT" className="App-login-icon col-xs-offset-3 col-xs-6"/>
           <span className="App-title col-xs-12">Events</span>
           <button onClick={() => this.clickedLogin()} className="App-login-button col-xs-offset-3 col-xs-6">Login with Google</button>
-        </div>
       );
     }
     else {
@@ -41,6 +40,7 @@ class App extends Component {
                 <Route path="/EventList" component={ListOfEvents} />
                 <Route path="/CreateEvent" component={CreateEvent} />
                 <Route path="/EditEvent" component={EditEvent} />
+                <Route path="/Messages" component={Messages} />
               </Switch>
               <Footer />
             </div>
