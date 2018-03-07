@@ -1,6 +1,22 @@
 import React from "react";
+import $ from "jquery";
+import bootstrapDatetimePicker from "bootstrap-datetime-picker";
 
 class CreateEvent extends React.Component {
+	componentDidMount() {
+		$(document).ready(function(){
+			$('.form_datetime').datetimepicker({
+				weekStart: 1,
+				todayBtn:  1,
+				autoclose: 1,
+				todayHighlight: 1,
+				startView: 2,
+				forceParse: 0,
+				showMeridian: 1
+			});
+		});
+	}
+
     render() {
         return (
             <div id="page-event-form">
