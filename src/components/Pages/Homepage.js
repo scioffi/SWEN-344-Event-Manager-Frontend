@@ -42,19 +42,16 @@ class Homepage extends React.Component {
               <div className="container">
                   <div className="row">
                       <div className="col-md-4">
-                          <h2>Heading</h2>
-                          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                          <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                          <h2>Events are Easy to Sign Up For</h2>
+                          <p>Events now have a streamlined and easy to sign up for. Just go to any event and click register to sign up for an event.</p>
                       </div>
                       <div className="col-md-4">
-                          <h2>Heading</h2>
-                          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                          <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                          <h2>Now 6 Ways to Pay!</h2>
+                          <p>Now you can pay for events in six currencies! US dollars, Euros, BitCoin, GBP, Indian Rupee, and Canadian dollar are now all acceptable forms of payment.</p>
                       </div>
                       <div className="col-md-4">
-                          <h2>Heading</h2>
-                          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                          <p><a className="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                          <h2>Share Events with Others</h2>
+                          <p>Now you can share events with your friends while browsing events. This allows both parties to view events and let your friends know you want them to join you!</p>
                       </div>
                   </div>
               </div>
