@@ -15,11 +15,31 @@
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 3.5em;
+  margin-bottom: 5%;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.App-login {
+  border: solid gray thin;
+  text-align: center;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.App-login-icon {
+  height: 150px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.App-login-button {
+  background-color: red;
+  color: white;
+  margin-bottom: 10%;
 }
 
 @keyframes App-logo-spin {
