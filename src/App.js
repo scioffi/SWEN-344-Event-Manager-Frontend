@@ -10,14 +10,20 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = {login: false};
+    if(localStorage.secureLoginHehexD) {
+      this.state = {login: true}
+    }
+    else {
+      this.state = {login: false};
+    }
 
     // custom function, must bind to this
     this.clickedLogin = this.clickedLogin.bind(this);
   }
 
   clickedLogin() {
-    this.setState({login: true})
+    this.setState({login: true});
+    localStorage.setItem("secureLoginHehexD", "123abc");
   }
 
   render() {
