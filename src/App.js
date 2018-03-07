@@ -27,6 +27,7 @@ class App extends Component {
           <img src={ritLogo} alt="RIT" className="App-login-icon col-xs-offset-3 col-xs-6"/>
           <span className="App-title col-xs-12">Events</span>
           <button onClick={() => this.clickedLogin()} className="App-login-button col-xs-offset-3 col-xs-6">Login with Google</button>
+      </div>
       );
     }
     else {
