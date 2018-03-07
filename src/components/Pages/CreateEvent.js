@@ -1,8 +1,37 @@
 import React from "react";
 import $ from "jquery";
-import bootstrapDatetimePicker from "bootstrap-datetime-picker";
+require("bootstrap-datetime-picker");
 
 class CreateEvent extends React.Component {
+	constructor(props){
+		super(props);
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleSubmit(event){
+		event.preventDefault();
+		const data = new FormData(event.target);
+
+		fetch("http://localhost:8080/api/createEvent", {
+			method: "POST",
+			body: data
+		})
+		.then(function(response){
+			if(response.status !== 200){
+				throw "BAD REQUEST";
+			}
+
+			console.log(response);
+
+			// Handle success
+		})
+		.catch(function(error) {
+			console.error(error);
+			window.alert("A submit error occurred. Check the console for details."); // DEBUG ONLY
+		});
+	}
+
 	componentDidMount() {
 		$(document).ready(function(){
 			$('.form_datetime').datetimepicker({
@@ -21,7 +50,7 @@ class CreateEvent extends React.Component {
         return (
             <div id="page-event-form">
                 <h1>Create a new Event</h1>
-                <form method="post" action="/api/createEvent/" id="event-form">
+                <form method="post" onSubmit={this.handleSubmit} id="event-form">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group">
