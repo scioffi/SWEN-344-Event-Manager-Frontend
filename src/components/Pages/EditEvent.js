@@ -4,7 +4,7 @@ class EditEvent extends React.Component {
     render() {
         return (
             <div id="page-event-form">
-                <h1>Create a new Event</h1>
+                <h1>Create an Event</h1>
                 <form method="post" onSubmit={this.handleSubmit} id="event-form">
                     <div className="row">
                         <div className="col-md-12">
