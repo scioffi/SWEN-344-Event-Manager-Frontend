@@ -6,6 +6,7 @@ import EditEvent from "./EditEvent";
 import ListOfOrders from "./ListOfOrders";
 import Order from "./Order";
 import Messages from "./Messages";
+import Expired from "./Expired";
 
 export {
     Homepage,
@@ -15,5 +16,6 @@ export {
     EditEvent,
     Order,
     ListOfOrders,
-    Messages
+    Messages,
+    Expired
 };

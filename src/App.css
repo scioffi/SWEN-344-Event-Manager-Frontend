@@ -24,6 +24,10 @@
   font-size: large;
 }
 
+.event-button{
+  margin: 5px;
+}
+
 .App-login {
   border: solid gray thin;
   text-align: center;
