@@ -4,10 +4,39 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import {Homepage, Event, ListOfEvents, CreateEvent, EditEvent, ListOfOrders, Messages, Expired} from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
+import ritLogo from "./images/rit-logo.png";
 
 class App extends Component {
+
+  constructor() {
+    super();
+    if(localStorage.secureLoginHehexD) {
+      this.state = {login: true}
+    }
+    else {
+      this.state = {login: false};
+    }
+
+    // custom function, must bind to this
+    this.clickedLogin = this.clickedLogin.bind(this);
+  }
+
+  clickedLogin() {
+    this.setState({login: true});
+    localStorage.setItem("secureLoginHehexD", "123abc");
+  }
+
   render() {
-    return (
+    if(!this.state.login) {
+      return (
+        <div className="App-login col-xs-12">
+          <img src={ritLogo} alt="RIT" className="App-login-icon col-xs-offset-3 col-xs-6"/>
+          <span className="App-title col-xs-12">Events</span>
+          <button onClick={() => this.clickedLogin()} className="App-login-button col-xs-offset-3 col-xs-6">Login with Google</button>
+        </div>
+      );
+    }
+    else {return (
       <BrowserRouter>
         <div>
           <Header />
@@ -17,14 +46,13 @@ class App extends Component {
             <Route path="/EventList" component={ListOfEvents} />
             <Route path="/CreateEvent" component={CreateEvent} />
             <Route path="/EditEvent" component={EditEvent} />
-            <Route path="/OrderList" component={ListOfOrders} />
-            <Route path="/Messages" component={Messages} />
-            <Route path="/Expired" component={Expired} />
+            <Route  path="/Messages" component={Messages} />
+          	<Route path="/Expired" component={Expired} />
           </Switch>
           <Footer />
         </div>
       </BrowserRouter>
-    );
+    );}
   }
 }
 

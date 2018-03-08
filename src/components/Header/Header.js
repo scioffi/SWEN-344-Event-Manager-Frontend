@@ -12,9 +12,9 @@ class Header extends React.Component {
                         <div className="navbar-header">
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                                 <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
+                                <span className="icon-bar" />
                             </button>
                             <Link to="/"><img src={ritLogo} className="navbar-brand" alt="RIT" /></Link>
                         </div>
@@ -27,7 +27,7 @@ class Header extends React.Component {
                             </ul>
                             <form className="navbar-form navbar-right">
                                 <div className="form-group">
-                                    <input type="text" placeholder="Search for an Event" className="form-control"></input>
+                                    <input type="text" placeholder="Search for an Event" className="form-control" />
                                 </div>
                                 <button type="submit" className="btn btn-success">Search</button>
                             </form>
