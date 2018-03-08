@@ -48,6 +48,7 @@ class App extends Component {
             <Route path="/EditEvent" component={EditEvent} />
             <Route  path="/Messages" component={Messages} />
           	<Route path="/Expired" component={Expired} />
+            <Route path="/ListOfOrders" component={ListOfOrders} />
           </Switch>
           <Footer />
         </div>
