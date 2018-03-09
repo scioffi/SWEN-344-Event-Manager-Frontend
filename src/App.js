@@ -45,7 +45,7 @@ class App extends Component {
             <Route path="/Event/:eventId" component={Event} />
             <Route path="/EventList" component={ListOfEvents} />
             <Route path="/CreateEvent" component={CreateEvent} />
-            <Route path="/EditEvent" component={EditEvent} />
+            <Route path="/EditEvent/:eventId" component={EditEvent} />
             <Route  path="/Messages" component={Messages} />
           	<Route path="/Expired" component={Expired} />
             <Route path="/ListOfOrders" component={ListOfOrders} />
