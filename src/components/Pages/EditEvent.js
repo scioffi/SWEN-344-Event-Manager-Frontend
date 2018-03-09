@@ -14,8 +14,35 @@ class EditEvent extends React.Component {
 			event: {}
 		};
 
-		this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
 	}
+
+    handleDelete = (event) => {
+		event.preventDefault();
+        const data = new URLSearchParams();
+        data.append("eventId", this.props.match.params.eventId);
+		const self = this;
+
+		fetch("http://localhost:8080/api/deleteEvent", {
+			method: "POST",
+			body: data
+		})
+		.then(function(response){
+			console.log(response);
+			if(response.status !== 200){
+				throw response;
+			}
+
+			self.setState({
+				createSuccessful: true
+			});
+		})
+		.catch(function(error) {
+			console.error(error);
+			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
+		});
+	};
 
 	handleSubmit = (event) => {
 		event.preventDefault();
@@ -81,6 +108,9 @@ class EditEvent extends React.Component {
     render() {
         const start = moment.unix(this.state.event.start_time).format("MMMM D YYYY - h:mm a");
         const end = moment.unix(this.state.event.end_time).format("MMMM D YYYY - h:mm a");
+
+        const del = window.events.hostname + "/api/deleteEvent?eventId=" + this.props.match.params.eventId;
+
         if (this.state.fetching === true && this.state.createSuccessful === false){
 			return (
 				<div>
@@ -165,7 +195,7 @@ class EditEvent extends React.Component {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <input type="button" onClick={() => {this.props.history.goBack()}} value="Cancel" className="btn btn-info btn-lg btn-block" />
+                                <input type="button" onClick={this.handleDelete} value="Delete Event" className="btn btn-danger btn-lg btn-block" />
                             </div>
                         </div>
                     </form>
