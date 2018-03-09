@@ -107,6 +107,7 @@ class RegisterForEvent extends React.Component{
 						<option value="CAD">CAD</option>
 						<option value="EUR">Euro</option>
 						<option value="GBP">Pounds</option>
+						<option value="INR">Indian Rupee</option>
 						<option value="BTC">BitCoin</option>
 					</select>
 				</form>
