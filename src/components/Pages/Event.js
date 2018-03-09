@@ -29,16 +29,14 @@ class Event extends React.Component {
 			console.error(error);
 			// Should probably do some real error handling LOL
 		});
+	}
 
+	componentWillMount(){
 		try {
 			window.twttr.widgets.load();
 		} catch(e) {
 			console.info(e);
 		}
-	}
-
-	componentWillMount(){
-
 	}
 
 	render() {
