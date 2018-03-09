@@ -1,36 +1,47 @@
 import React from "react";
 import $ from "jquery";
+import {Redirect} from "react-router-dom";
 require("bootstrap-datetime-picker");
 
 class CreateEvent extends React.Component {
 	constructor(props){
 		super(props);
 
+		this.state = {
+			createSuccessful: false
+		};
+
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit(event){
+	handleSubmit = (event) => {
 		event.preventDefault();
-		const data = new FormData(event.target);
+		const data = new URLSearchParams();
+		for (const pair of new FormData(event.target)) {
+			data.append(pair[0], pair[1]);
+		}
 
-		fetch("http://localhost:8080/api/createEvent", {
+		const self = this;
+
+		fetch(`${window.events.hostname}/api/createEvent`, {
 			method: "POST",
 			body: data
 		})
 		.then(function(response){
+			console.log(response);
 			if(response.status !== 200){
-				throw "BAD REQUEST";
+				throw response;
 			}
 
-			console.log(response);
-
-			// Handle success
+			self.setState({
+				createSuccessful: true
+			});
 		})
 		.catch(function(error) {
 			console.error(error);
-			window.alert("A submit error occurred. Check the console for details."); // DEBUG ONLY
+			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 		});
-	}
+	};
 
 	componentDidMount() {
 		$(document).ready(function(){
@@ -47,6 +58,9 @@ class CreateEvent extends React.Component {
 	}
 
     render() {
+		if(this.state.createSuccessful){
+			return <Redirect to='/EventList' />;
+		}
         return (
             <div id="page-event-form">
                 <h1>Create a new Event</h1>
@@ -59,7 +73,7 @@ class CreateEvent extends React.Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="event_desc" className="control-label">Event Description</label>
-                                <textarea className="form-control" name="decription" id="description" placeholder="Event Description" rows="3" cols="100%" required />
+                                <textarea className="form-control" name="description" id="description" placeholder="Event Description" rows="3" cols="100%" required />
                             </div>
                         </div>
                     </div>
@@ -69,7 +83,7 @@ class CreateEvent extends React.Component {
                                 <label htmlFor="event_location">Location</label>
                                 <div className="input-group">
                                     <span className="input-group-addon"><span className="glyphicon glyphicon-map-marker" /></span>
-                                    <input type="text" className="form-control" name="event_location" id="location" placeholder="Event Location" required />
+                                    <input type="text" className="form-control" name="location" id="location" placeholder="Event Location" required />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -91,15 +105,15 @@ class CreateEvent extends React.Component {
                             <div className="form-group">
                                 <label htmlFor="event_start_time" className="control-label">Start Time</label>
                                 <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_start_time">
-                                    <input className="form-control" name="start_time" size="16" type="text" value="" readonly required />
+                                    <input className="form-control" name="start_time" size="16" type="text" value="" readOnly required />
                                     <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                 </div>
                                 <input type="hidden" id="event_start_time" value="" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="event_end_time" className="control-label">End Time</label>
-                                <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_start_time">
-                                    <input className="form-control" name="end_time" size="16" type="text" value="" readonly required />
+                                <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_end_time">
+                                    <input className="form-control" name="end_time" size="16" type="text" value="" readOnly required />
                                     <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                 </div>
                                 <input type="hidden" id="event_end_time" value="" />
