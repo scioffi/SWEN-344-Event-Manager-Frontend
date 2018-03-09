@@ -23,7 +23,7 @@ class CreateEvent extends React.Component {
 
 		const self = this;
 
-		fetch("http://localhost:8080/api/createEvent", {
+		fetch(`${window.events.hostname}/api/createEvent`, {
 			method: "POST",
 			body: data
 		})

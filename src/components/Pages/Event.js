@@ -1,6 +1,7 @@
 import React from "react";
 import DateTime from "../utilities/DateTime";
 import {Glyphicon} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 class Event extends React.Component {
 	constructor(props){
@@ -34,7 +35,7 @@ class Event extends React.Component {
 		try {
 			window.twttr.widgets.load();
 		} catch(e) {
-			console.warn(e);
+			console.info(e);
 		}
 	}
 
@@ -60,8 +61,8 @@ class Event extends React.Component {
 								<h4> <Glyphicon glyph="time"/> <b>Start Time:</b> <DateTime timestamp={this.state.event.start_time}/> </h4>
 								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.end_time}/> </h4>
 								
-								<a className="btn btn-default event-button" href="#" role="button">Share Event &raquo;</a>
-                            	<a className="btn btn-default event-button" href="#" role="button">Sign Up &raquo;</a>
+								<a className="btn btn-default event-button" role="button">Share Event &raquo;</a>
+                            	<Link to={`/EventRegistration/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Sign Up &raquo;</Link>
 								<br /> <hr />
 								<a className="twitter-timeline" href="https://twitter.com/hashtag/KrutzIsKool" data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
