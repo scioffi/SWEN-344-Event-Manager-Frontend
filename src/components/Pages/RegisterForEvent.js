@@ -53,7 +53,7 @@ class RegisterForEvent extends React.Component{
 			const symbol = "USD"+currency;
 			const factor = response.quotes[symbol];
 
-			const new_price = factor * this.state.price;
+			const new_price = factor * this.state.event.price;
 
 			this.setState({
 				price: new_price,
