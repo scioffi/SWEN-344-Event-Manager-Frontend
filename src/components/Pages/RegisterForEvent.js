@@ -184,7 +184,7 @@ class RegisterForEvent extends React.Component{
 					<form onSubmit={this.handleSubmit}>
 						<h2>Event Registration - {this.state.event.title}</h2>
 							<br />
-						<p><strong>Total Price: </strong> {this.state.price <= 0 ? "FREE!" : <Price />}</p>
+						<p><strong>Total Price: </strong> {this.state.event.price <= 0 ? "FREE!" : <Price />}</p>
 							<br />
 						<PaymentForm />
 					</form>
