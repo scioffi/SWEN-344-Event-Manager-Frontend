@@ -2,6 +2,12 @@ import React from "react";
 import ritLogo from "../../images/rit-logo.png";
 import {Link} from "react-router-dom";
 import {Glyphicon} from "react-bootstrap";
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
+const responseGoogle = (response) => {
+    console.log(response);
+  }
+
 
 class Header extends React.Component {
     render() {
@@ -25,12 +31,22 @@ class Header extends React.Component {
                                 <li><Link to="/CreateEvent">Create an Event</Link></li>
                                 <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                             </ul>
-                            <form className="navbar-form navbar-right">
-                                <div className="form-group">
-                                    <input type="text" placeholder="Search for an Event" className="form-control" />
-                                </div>
-                                <button type="submit" className="btn btn-success">Search</button>
-                            </form>
+                            
+                            ReactDOM.render(
+                                <GoogleLogin
+                                    clientId={'402862016858-cpmh4k9ajrf6le3v5h3726rs1sqllv97.apps.googleusercontent.com'}
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                >
+                                    <span> Login with Google</span>
+                                </GoogleLogin>,
+                                document.getElementById('googleButton')
+                            );
+                            <GoogleLogout
+                                onLogoutSuccess={responseGoogle}
+                                >
+                                <span> Logout </span>
+                            </GoogleLogout>
                         </div>
                     </div>
                 </nav>
