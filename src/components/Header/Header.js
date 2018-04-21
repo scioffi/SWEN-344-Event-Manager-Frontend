@@ -46,7 +46,7 @@ class Header extends React.Component {
                                 document.getElementById('googleButton')
                             );
                             <GoogleLogout
-                                onLogoutSuccess={responseGoogle}
+                                onLogoutSuccess={this.responseGoogle}
                                 >
                                 <span> Logout </span>
                             </GoogleLogout>
