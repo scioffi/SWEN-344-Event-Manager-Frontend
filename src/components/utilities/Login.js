@@ -41,13 +41,19 @@ export class Login extends React.Component{
 		if(!this.state.loggedIn) {
 			return (
 				<div>
-					<GoogleLogin
-						socialId="402862016858-cpmh4k9ajrf6le3v5h3726rs1sqllv97.apps.googleusercontent.com"
-						className="google-login"
-						fetchBasicProfile={true}
-						responseHandler={this.check}
-						buttonText="Login With Google"
-					/>
+					<div className="container">
+					<div class="center">
+						<h2>To sign into our app, please use Google.</h2>
+						
+						<GoogleLogin
+							socialId="402862016858-cpmh4k9ajrf6le3v5h3726rs1sqllv97.apps.googleusercontent.com"
+							className="google-login"
+							fetchBasicProfile={true}
+							responseHandler={this.check}
+							buttonText=""
+						/>
+						</div>
+					</div>
 				</div>
 			);
 		} else {
