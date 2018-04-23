@@ -14,41 +14,11 @@ import {
 } from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
-import ritLogo from "./images/rit-logo.png";
+import { checkLogin, Login } from "./components/utilities/Login.js";
 
 class App extends Component {
-
-	constructor() {
-		super();
-		if (localStorage.secureLoginHehexD) {
-			this.state = {login: true}
-		}
-		else {
-			this.state = {login: false};
-		}
-
-		// custom function, must bind to this
-		this.clickedLogin = this.clickedLogin.bind(this);
-	}
-
-	clickedLogin() {
-		this.setState({login: true});
-		localStorage.setItem("secureLoginHehexD", "123abc");
-	}
-
 	render() {
-		if (!this.state.login) {
-			return (
-				<div className="App-login col-xs-12">
-					<img src={ritLogo} alt="RIT" className="App-login-icon col-xs-offset-3 col-xs-6"/>
-					<span className="App-title col-xs-12">Events</span>
-					<button onClick={() => this.clickedLogin()}
-							className="App-login-button col-xs-offset-3 col-xs-6">Login with Google
-					</button>
-				</div>
-			);
-		}
-		else {
+		if(checkLogin()) {
 			return (
 				<BrowserRouter>
 					<div>
@@ -67,6 +37,10 @@ class App extends Component {
 						<Footer/>
 					</div>
 				</BrowserRouter>
+			);
+		} else {
+			return (
+				<Login />
 			);
 		}
 	}
