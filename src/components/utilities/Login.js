@@ -46,7 +46,7 @@ export class Login extends React.Component{
 						className="google-login"
 						fetchBasicProfile={true}
 						responseHandler={this.check}
-						buttonText="Login With KrutzGoogle(r)"
+						buttonText="Login With Google"
 					/>
 				</div>
 			);

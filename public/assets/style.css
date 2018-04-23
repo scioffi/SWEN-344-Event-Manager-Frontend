@@ -12,3 +12,13 @@
 Footer {
     margin-top: 50px;
 }
+.google-login{
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background: url("../images/btn_google_signin_light_normal_web@2x.png") no-repeat;
+}
