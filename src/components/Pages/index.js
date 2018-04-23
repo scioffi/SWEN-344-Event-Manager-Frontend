@@ -8,6 +8,7 @@ import Order from "./Order";
 import Messages from "./Messages";
 import Expired from "./Expired";
 import RegisterForEvents from "./RegisterForEvent";
+import Admin from "./Admin";
 
 export {
     Homepage,
@@ -19,5 +20,6 @@ export {
     ListOfOrders,
     Messages,
     Expired,
-    RegisterForEvents
+    RegisterForEvents,
+    Admin
 };
