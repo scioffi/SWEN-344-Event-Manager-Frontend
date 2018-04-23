@@ -14,14 +14,11 @@ import {
 } from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
-import ritLogo from "./images/rit-logo.png";
+import { checkLogin, Login } from "./components/utilities/Login.js";
 
 class App extends Component {
-
-	constructor() {
-		super();
-	}
 	render() {
+		if(checkLogin()) {
 			return (
 				<BrowserRouter>
 					<div>
@@ -41,7 +38,12 @@ class App extends Component {
 					</div>
 				</BrowserRouter>
 			);
+		} else {
+			return (
+				<Login />
+			);
 		}
 	}
+}
 
 export default App;
