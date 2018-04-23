@@ -22,7 +22,7 @@ export class Login extends React.Component{
 
 		this.state = {
 			loggedIn: false
-		}
+		};
 
 		this.check = this.check.bind(this);
 	}
