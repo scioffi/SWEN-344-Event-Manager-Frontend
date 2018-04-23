@@ -101,7 +101,7 @@ class RegisterForEvent extends React.Component{
 		const Price = () => {
 			return (
 				<form className="form-inline">
-					<h4 style={{display: "inline", verticalAlign: "middle"}}>${this.state.price}&nbsp;&nbsp;</h4>
+					<h4 style={{display: "inline", verticalAlign: "middle"}}>{this.state.price}&nbsp;&nbsp;</h4>
 					<select value={this.state.currency} name="price" className="form-control" onChange={this.changeCurrency}>
 						<option value="USD">USD</option>
 						<option value="CAD">CAD</option>
