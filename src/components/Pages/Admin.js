@@ -110,12 +110,12 @@ class Admin extends React.Component {
 										<div className="row">
 											<div className="col-md-6">
 												{user.permission === "admin"
-													? <a className="btn btn-primary btn-sm btn-block" onClick={() => this.changePerm(user.user_id, user.first_name, user.last_name, "user")}><Glyphicon glyph="thumbs-down" /> Demote to User</a>
-													: <a className="btn btn-primary btn-sm btn-block" onClick={() => this.changePerm(user.user_id, user.first_name, user.last_name, "admin")}><Glyphicon glyph="thumbs-up" /> Promote to Admin</a>
+													? <a className="btn btn-info btn-sm btn-block" onClick={() => this.changePerm(user.user_id, user.first_name, user.last_name, "user")}><Glyphicon glyph="thumbs-down" /> Demote to User</a>
+													: <a className="btn btn-info btn-sm btn-block" onClick={() => this.changePerm(user.user_id, user.first_name, user.last_name, "admin")}><Glyphicon glyph="thumbs-up" /> Promote to Admin</a>
 												}
 											</div>
 											<div className="col-md-6">
-												<a className="btn btn-default btn-sm btn-block" onClick={() => this.deleteUser(user.user_id, user.first_name, user.last_name)}><Glyphicon glyph="trash" /> Delete User</a>
+												<a className="btn btn-primary btn-sm btn-block" onClick={() => this.deleteUser(user.user_id, user.first_name, user.last_name)}><Glyphicon glyph="trash" /> Delete User</a>
 											</div>
 										</div>
 									</td>
