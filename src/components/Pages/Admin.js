@@ -156,6 +156,7 @@ class Admin extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-md-3">
+					<h1 className="text-center">Admin Panel</h1>
 					<Link className="btn btn-primary btn-block btn-lg" to="/CreateEvent">Create an Event</Link>
 					<a className="btn btn-default btn-block btn-lg" onClick={() => this.changeView("orders")}>Order History</a>
 					<a className="btn btn-default btn-block btn-lg" onClick={() => this.changeView("users")}>Manage Users</a>
