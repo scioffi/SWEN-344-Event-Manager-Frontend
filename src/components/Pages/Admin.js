@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {Glyphicon} from "react-bootstrap";
 
 class Admin extends React.Component {
 	constructor(props) {
@@ -91,20 +92,31 @@ class Admin extends React.Component {
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Username</th>
 							<th>Email</th>
 							<th>Role</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						{this.state.users.map((user, index) => {
-							console.log(user);
 							return (
 								<tr key={index}>
 									<td>{user.first_name} {user.last_name}</td>
-									<td>{user.username}</td>
 									<td>{user.email}</td>
 									<td>{user.permission}</td>
+									<td>
+										<div className="row">
+											<div className="col-md-6">
+												{user.permission === "admin"
+													? <a className="btn btn-warning btn-sm btn-block"><Glyphicon glyph="thumbs-down" /> Demote to User</a>
+													: <a className="btn btn-info btn-sm btn-block"><Glyphicon glyph="thumbs-up" /> Promote to Admin</a>
+												}
+											</div>
+											<div className="col-md-6">
+												<a className="btn btn-danger btn-sm btn-block"><Glyphicon glyph="trash" /> Delete User</a>
+											</div>
+										</div>
+									</td>
 								</tr>
 							);
 						})}
