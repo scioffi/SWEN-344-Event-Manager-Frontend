@@ -60,17 +60,26 @@ class Admin extends React.Component {
 	viewOrders() {
 		return (
 			<div>
-				{this.state.orders.map((order, index) => {
-					return (
-						<div key={index} className="row">
-							<div className="col-md-12">
-								<p>eventId: {order.eventId}</p>
-								<p>userId: {order.userId}</p>
-								<p>price: {order.price}</p>
-							</div>
-						</div>
-					);
-				})}
+				<table className="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Attendee</th>
+							<th>Price Paid (USD)</th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.state.orders.map((order, index) => {
+							return (
+								<tr key={index}>
+									<td>{order.event_id}</td>
+									<td>{order.user_id}</td>
+									<td>{order.price}</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
 			</div>
 		);
 	}
@@ -78,7 +87,7 @@ class Admin extends React.Component {
 	viewUsers() {
 		return (
 			<div>
-				<table className="table">
+				<table className="table table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>Name</th>
