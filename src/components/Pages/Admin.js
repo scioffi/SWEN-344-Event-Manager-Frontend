@@ -161,7 +161,6 @@ class Admin extends React.Component {
 					<a className="btn btn-default btn-block btn-lg" onClick={() => this.changeView("orders")}>Order History</a>
 					<a className="btn btn-default btn-block btn-lg" onClick={() => this.changeView("users")}>Manage Users</a>
 					<a className="btn btn-default btn-block btn-lg" href="https://www.spinthismeat.com"
-					   target="_blank">Click Me for a Surprise!</a>
 				</div>
 				<div className="col-md-9">
 					{this.content()}
