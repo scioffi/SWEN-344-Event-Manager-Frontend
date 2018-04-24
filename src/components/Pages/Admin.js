@@ -18,6 +18,8 @@ class Admin extends React.Component {
 		this.content = this.content.bind(this);
 		this.changeView = this.changeView.bind(this);
 		this.viewUsers = this.viewUsers.bind(this);
+		this.deleteUser = this.deleteUser.bind(this);
+		this.changePerm = this.changePerm.bind(this);
 	}
 
 	componentDidMount() {
@@ -113,7 +115,7 @@ class Admin extends React.Component {
 												}
 											</div>
 											<div className="col-md-6">
-												<a className="btn btn-danger btn-sm btn-block"><Glyphicon glyph="trash" /> Delete User</a>
+												<a className="btn btn-danger btn-sm btn-block" onClick={() => this.deleteUser(user.user_id, user.first_name, user.last_name)}><Glyphicon glyph="trash" /> Delete User</a>
 											</div>
 										</div>
 									</td>
@@ -124,6 +126,59 @@ class Admin extends React.Component {
 				</table>
 			</div>
 		);
+	}
+
+	deleteUser(user_id, first_name, last_name) {
+		if (user_id > 0){
+			let confirmation = window.confirm(`Are you sure you want to delete ${first_name} ${last_name}'s account?`);
+
+			if(confirmation === true){
+				const data = {
+					userId: user_id
+				};
+
+				fetch(`${window.events.hostname}/api/deleteUser`, {
+					method: "POST",
+					body: data
+				})
+				.then((response) => {
+					window.location = "";
+				})
+				.catch((error) => {
+					console.error(error);
+					alert("Unable to delete user. Try again later.");
+				});
+			} else {
+				return false;
+			}
+		}
+	}
+
+	changePerm(user_id, perm) {
+		if (user_id > 0){
+			let confirmation = window.confirm(`Are you sure you want to change ${first_name} ${last_name} to an ${perm}?`);
+
+			if(confirmation === true){
+				const data = {
+					userId: user_id,
+					permission: perm
+				};
+
+				fetch(`${window.events.hostname}/api/changeUserPermission`, {
+					method: "POST",
+					body: data
+				})
+				.then((response) => {
+					window.location = "";
+				})
+				.catch((error) => {
+					console.error(error);
+					alert("Unable to change user. Try again later.");
+				});
+			} else {
+				return false;
+			}
+		}
 	}
 
 	content() {
