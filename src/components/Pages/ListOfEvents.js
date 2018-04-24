@@ -65,16 +65,16 @@ class ListOfEvents extends React.Component {
 																<dd>${event.price} USD</dd>
 
 																<dt>Start Time:</dt>
-																<dd><DateTime timestamp={event.start_time}/></dd>
+																<dd><DateTime timestamp={event.start_date}/></dd>
 
 																<dt>End Time:</dt>
-																<dd><DateTime timestamp={event.end_time}/></dd>
+																<dd><DateTime timestamp={event.end_date}/></dd>
 															</dl>
 														</div>
 													</div>
 													<div className="row">
 														<div className="col-md-12">
-															<Link to={"/Event/" + event.eventId}
+															<Link to={"/Event/" + event.event_id}
 																  className="btn btn-default" role="button">View
 																Details &raquo;</Link>
 														</div>

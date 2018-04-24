@@ -58,8 +58,8 @@ class Event extends React.Component {
 								<h4> <Glyphicon glyph="user"/> <b>Author:</b> {this.state.event.author}</h4>
 								<h4> <Glyphicon glyph="book"/> <b>Description:</b> {this.state.event.description}</h4>
 								<h4> <Glyphicon glyph="map-marker"/> <b>Location:</b> {this.state.event.location}</h4>
-								<h4> <Glyphicon glyph="time"/> <b>Start Time:</b> <DateTime timestamp={this.state.event.start_time}/> </h4>
-								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.end_time}/> </h4>
+								<h4> <Glyphicon glyph="time"/> <b>Start Time:</b> <DateTime timestamp={this.state.event.start_date}/> </h4>
+								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.end_date}/> </h4>
 								
 								<a className="btn btn-default event-button" role="button">Share Event &raquo;</a>
                             	<Link to={`/EventRegistration/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Sign Up &raquo;</Link>

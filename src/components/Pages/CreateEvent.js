@@ -12,6 +12,7 @@ class CreateEvent extends React.Component {
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.validate = this.validate.bind(this);
 	}
 
 	handleSubmit = (event) => {
@@ -23,24 +24,32 @@ class CreateEvent extends React.Component {
 
 		const self = this;
 
-		fetch(`${window.events.hostname}/api/createEvent`, {
-			method: "POST",
-			body: data
-		})
-		.then(function(response){
-			console.log(response);
-			if(response.status !== 200){
-				throw response;
-			}
+		if(this.validate(data) === true) {
+			fetch(`${window.events.hostname}/api/createEvent`, {
+				method: "POST",
+				body: data
+			})
+			.then(function (response) {
+				console.log(response);
+				if (response.status !== 200) {
+					throw response;
+				}
 
-			self.setState({
-				createSuccessful: true
+				self.setState({
+					createSuccessful: true
+				});
+			})
+			.catch(function (error) {
+				console.error(error);
+				window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 			});
-		})
-		.catch(function(error) {
-			console.error(error);
-			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
-		});
+		}
+	};
+
+	validate = (data) => {
+		console.log(data);
+
+		return false;
 	};
 
 	componentDidMount() {
