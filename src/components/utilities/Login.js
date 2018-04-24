@@ -43,7 +43,7 @@ export class Login extends React.Component{
 				<div>
 					<div className="container">
 					<div class="center">
-						<h2>To sign into our app, please use Google.</h2>
+						<h2>To sign into the Event Management System, please use Google.</h2>
 						
 						<GoogleLogin
 							socialId="402862016858-cpmh4k9ajrf6le3v5h3726rs1sqllv97.apps.googleusercontent.com"

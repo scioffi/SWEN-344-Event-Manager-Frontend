@@ -27,6 +27,16 @@ Footer {
     display: inline-block;
     font-size: 16px;
     background: url("./btn_google_signin_light_normal_web@2x.png") no-repeat;
-    
+}
+.google-login:hover{
+    border: none;
+    color: black;
+    width: 382px;
+    padding: 92px 0 0 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background: url("./btn_google_signin_light_focus_web@2x.png") no-repeat;
 }
 /*http://www.se.rit.edu/~mxs7353/html/style.css*/
