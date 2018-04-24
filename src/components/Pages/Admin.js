@@ -75,7 +75,7 @@ class Admin extends React.Component {
 								<tr key={index}>
 									<td>{order.event_id}</td>
 									<td>{order.user_id}</td>
-									<td>{order.price}</td>
+									<td>${order.price}</td>
 								</tr>
 							);
 						})}
