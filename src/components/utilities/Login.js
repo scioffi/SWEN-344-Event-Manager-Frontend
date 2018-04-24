@@ -10,9 +10,10 @@ export const checkLogin = (response) => {
 		}
 	} else { // Call from Google Auth
 		console.log(response.w3);
-
+		var splitName = response.w3.ig.split(" ");
 		sessionStorage.setItem("email", response.w3.U3);
-		sessionStorage.setItem("name", response.w3.ig);
+		sessionStorage.setItem("fname", splitName[0]);
+		sessionStorage.setItem("lname", splitName[1]);
 	}
 };
 
@@ -42,7 +43,7 @@ export class Login extends React.Component{
 			return (
 				<div>
 					<div className="container">
-					<div class="center">
+					<div className="center">
 						<h2>To sign into the Event Management System, please use Google.</h2>
 						
 						<GoogleLogin
@@ -57,7 +58,7 @@ export class Login extends React.Component{
 				</div>
 			);
 		} else {
-			window.location = "/";
+			//window.location = "/";
 			return (
 				<div></div>
 			);
