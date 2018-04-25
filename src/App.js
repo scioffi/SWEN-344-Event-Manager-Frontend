@@ -10,7 +10,8 @@ import {
 	ListOfOrders,
 	Messages,
 	Expired,
-	RegisterForEvents
+	RegisterForEvents,
+	Admin
 } from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
@@ -33,6 +34,7 @@ class App extends Component {
 							<Route path="/Expired" component={Expired}/>
 							<Route path="/ListOfOrders" component={ListOfOrders} />
 							<Route path="/EventRegistration/:eventId" component={RegisterForEvents}/>
+							<Route path="/Admin" component={Admin}/>
 						</Switch>
 						<Footer/>
 					</div>

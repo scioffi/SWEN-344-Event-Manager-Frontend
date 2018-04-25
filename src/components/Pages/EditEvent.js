@@ -109,8 +109,6 @@ class EditEvent extends React.Component {
         const start = moment.unix(this.state.event.start_time).format("MMMM D YYYY - h:mm a");
         const end = moment.unix(this.state.event.end_time).format("MMMM D YYYY - h:mm a");
 
-        const del = window.events.hostname + "/api/deleteEvent?eventId=" + this.props.match.params.eventId;
-
         if (this.state.fetching === true && this.state.createSuccessful === false){
 			return (
 				<div>

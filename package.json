@@ -16,7 +16,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_ENV=development react-scripts start",
     "build": "cross-env REACT_APP_ENV=production react-scripts build",
-    "build-clean": "rm -rf node_modules/;  cross-env REACT_APP_ENV=production react-scripts build",
+    "build-clean": "rm -rf node_modules/; cross-env REACT_APP_ENV=production react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
