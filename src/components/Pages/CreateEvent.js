@@ -8,11 +8,13 @@ class CreateEvent extends React.Component {
 		super(props);
 
 		this.state = {
-			createSuccessful: false
+			createSuccessful: false,
+			error: []
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.validate = this.validate.bind(this);
+		this.showErrors = this.showErrors.bind(this);
 	}
 
 	handleSubmit = (event) => {
@@ -47,9 +49,31 @@ class CreateEvent extends React.Component {
 	};
 
 	validate = (data) => {
-		console.log(data);
-
+		this.setState({
+			error: []
+		});
+		if(isNaN(data.get("price"))){
+			this.state.error.push("Please enter a valid price.");
+			this.setState({
+				error: this.state.error
+			});
+		}
 		return false;
+	};
+
+	showErrors = () => {
+		if(this.state.error.length > 0){
+			this.state.error.map((error, index) => {
+				return (
+					<div key={index} className="alert alert-danger">
+						<button type="button" className="close" data-dismiss="alert">&times;</button>
+						<strong>ERROR!</strong> {error}
+					</div>
+				)
+			});
+		} else {
+			return null;
+		}
 	};
 
 	componentDidMount() {
@@ -72,7 +96,15 @@ class CreateEvent extends React.Component {
 		}
         return (
             <div id="page-event-form">
-                <h1>Create a new Event</h1>
+				{this.state.error.length > 0 && this.state.error.map((error, index) => {
+					return (
+						<div key={index} className="alert alert-danger">
+							<button type="button" className="close" data-dismiss="alert">&times;</button>
+							<strong>ERROR!</strong> {error}
+						</div>
+					);
+				})}
+                <h1>Create a New Event</h1>
                 <form method="post" onSubmit={this.handleSubmit} id="event-form">
                     <div className="row">
                         <div className="col-md-12">
