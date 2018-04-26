@@ -22,7 +22,9 @@ class Header extends React.Component {
                             <ul className="nav navbar-nav">
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/EventList">Upcoming Events</Link></li>
-                                <li><Link to="/CreateEvent">Create an Event</Link></li>
+                                {sessionStorage.getItem("permission") === "admin" &&
+                                    <li><Link to="/CreateEvent">Create an Event</Link></li>
+                                }
                                 <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                             </ul>
                         </div>

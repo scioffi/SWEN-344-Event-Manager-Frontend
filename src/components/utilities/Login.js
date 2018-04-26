@@ -9,12 +9,34 @@ export const checkLogin = (response) => {
 			return false;
 		}
 	} else { // Call from Google Auth
-		console.log(response.w3);
-
+		//console.log(response.w3);
 		sessionStorage.setItem("email", response.w3.U3);
-		sessionStorage.setItem("name", response.w3.ig);
+		sessionStorage.setItem("fname", response.w3.ofa);
+		sessionStorage.setItem("lname", response.w3.wea);
+		initialLogin();
 	}
 };
+function initialLogin() {
+	const url = `${window.events.hostname}/api/initial_login`;
+	const data = new URLSearchParams();
+	data.append("email", sessionStorage.getItem("email"));
+	data.append("first_name", sessionStorage.getItem("fname"));
+	data.append("last_name", sessionStorage.getItem("lname"));
+	fetch(url, {
+		method: "post",
+		body: data
+	})
+	.then((res) => res.json())
+	.then((response) => {
+		//console.log(response);
+		sessionStorage.setItem("id", response.user_id);
+		sessionStorage.setItem("permission", response.permission);
+	})
+	.catch((error) => {
+		console.error(error);
+		// Should probably do some real error handling LOL
+	});
+}
 
 export class Login extends React.Component{
 	constructor(props){
@@ -26,7 +48,7 @@ export class Login extends React.Component{
 
 		this.check = this.check.bind(this);
 	}
-
+	
 	check(response){
 		if(response.w3 && response.w3.U3 !== undefined){
 			this.setState({
@@ -42,7 +64,7 @@ export class Login extends React.Component{
 			return (
 				<div>
 					<div className="container">
-					<div class="center">
+					<div className="center">
 						<h2>To sign into the Event Management System, please use Google.</h2>
 						
 						<GoogleLogin

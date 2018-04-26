@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
+import { isAdmin } from "../utilities/CheckAdmin";
 require("bootstrap-datetime-picker");
 
 class EditEvent extends React.Component {
@@ -109,8 +110,6 @@ class EditEvent extends React.Component {
         const start = moment.unix(this.state.event.start_time).format("MMMM D YYYY - h:mm a");
         const end = moment.unix(this.state.event.end_time).format("MMMM D YYYY - h:mm a");
 
-        const del = window.events.hostname + "/api/deleteEvent?eventId=" + this.props.match.params.eventId;
-
         if (this.state.fetching === true && this.state.createSuccessful === false){
 			return (
 				<div>
@@ -118,7 +117,7 @@ class EditEvent extends React.Component {
 				</div>
 			);
         }
-		else if(this.state.fetching === false && this.state.createSuccessful === true){
+		else if((this.state.fetching === false && this.state.createSuccessful === true) || (!isAdmin())){
 			return <Redirect to='/EventList' />;
         }
         else{
