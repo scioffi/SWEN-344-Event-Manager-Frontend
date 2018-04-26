@@ -54,7 +54,6 @@ class CreateEvent extends React.Component {
 			})
 			.catch(function (error) {
 				console.error(error);
-				alert(error.message);
 				window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 			});
 		}
