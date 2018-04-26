@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {Glyphicon} from "react-bootstrap";
+import { isAdmin } from "../utilities/CheckAdmin";
 
 class Admin extends React.Component {
 	constructor(props) {
@@ -220,19 +221,26 @@ class Admin extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className="row">
-				<div className="col-md-3">
-					<h1 className="text-center">Admin Panel</h1>
-					<Link className="btn btn-info btn-block btn-lg" to="/CreateEvent">Create an Event</Link>
-					<a className="btn btn-primary btn-block btn-lg" onClick={() => this.changeView("orders")}>Order History</a>
-					<a className="btn btn-primary btn-block btn-lg" onClick={() => this.changeView("users")}>Manage Users</a>
+		if(isAdmin()){
+			return (
+				<div className="row">
+					<div className="col-md-3">
+						<h1 className="text-center">Admin Panel</h1>
+						<Link className="btn btn-info btn-block btn-lg" to="/CreateEvent">Create an Event</Link>
+						<a className="btn btn-primary btn-block btn-lg" onClick={() => this.changeView("orders")}>Order History</a>
+						<a className="btn btn-primary btn-block btn-lg" onClick={() => this.changeView("users")}>Manage Users</a>
+					</div>
+					<div className="col-md-9">
+						{this.content()}
+					</div>
 				</div>
-				<div className="col-md-9">
-					{this.content()}
-				</div>
-			</div>
-		);
+			);
+		}else{
+			window.location = "/";
+			return (
+				<div></div>
+			);
+		}
 	}
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import {Redirect} from "react-router-dom";
 import moment from "moment";
+import { isAdmin } from "../utilities/CheckAdmin";
 require("bootstrap-datetime-picker");
 
 class EditEvent extends React.Component {
@@ -116,7 +117,7 @@ class EditEvent extends React.Component {
 				</div>
 			);
         }
-		else if(this.state.fetching === false && this.state.createSuccessful === true){
+		else if((this.state.fetching === false && this.state.createSuccessful === true) || (!isAdmin())){
 			return <Redirect to='/EventList' />;
         }
         else{
