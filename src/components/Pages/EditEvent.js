@@ -12,11 +12,14 @@ class EditEvent extends React.Component {
 		this.state = {
             createSuccessful: false,
             fetching: true,
-			event: {}
+			event: {},
+			error: []
 		};
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+		this.validate = this.validate.bind(this);
+		this.showErrors = this.showErrors.bind(this);
 	}
 
     handleDelete = (event) => {
@@ -54,24 +57,91 @@ class EditEvent extends React.Component {
         }
 		const self = this;
 
-		fetch("http://localhost:8080/api/editEvent", {
-			method: "POST",
-			body: data
-		})
-		.then(function(response){
-			console.log(response);
-			if(response.status !== 200){
-				throw response;
-			}
+		if(this.validate(data) === true) {
+			fetch("http://localhost:8080/api/editEvent", {
+				method: "POST",
+				body: data
+			})
+			.then(function (response) {
+				console.log(response);
+				if (response.status !== 200) {
+					throw response;
+				}
 
-			self.setState({
-				createSuccessful: true
+				self.setState({
+					createSuccessful: true
+				});
+			})
+			.catch(function (error) {
+				console.error(error);
+				window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 			});
-		})
-		.catch(function(error) {
-			console.error(error);
-			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
+		}
+	};
+
+	validate = (data) => {
+		this.setState({
+			error: []
 		});
+
+		if(isNaN(data.get("price"))){
+			this.state.error.push("Please enter a valid price.");
+			this.setState({
+				error: this.state.error
+			});
+		}
+
+		if(data.get("title") === null){
+			this.state.error.push("Please enter a title.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("description") === null){
+			this.state.error.push("Please enter a description.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("location") === null){
+			this.state.error.push("Please enter a location.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("hashtag") === null || data.get("hashtag").includes("#")){
+			this.state.error.push("Please enter a tag (without the # symbol).");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("start_date") === null || data.get("end_date") === null){
+			this.state.error.push("Please enter a valid start and end date.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		return this.state.error.length === 0;
+	};
+
+	showErrors = () => {
+		if(this.state.error.length > 0){
+			this.state.error.map((error, index) => {
+				return (
+					<div key={index} className="alert alert-danger">
+						<button type="button" className="close" data-dismiss="alert">&times;</button>
+						<strong>ERROR!</strong> {error}
+					</div>
+				)
+			});
+		} else {
+			return null;
+		}
 	};
 
 	componentDidMount() {
@@ -123,8 +193,18 @@ class EditEvent extends React.Component {
         else{
             return (
                 <div id="page-event-form">
+					{this.state.error.length > 0 && this.state.error.map((error, index) => {
+						return (
+							<div key={index} className="alert alert-danger">
+								<button type="button" className="close" data-dismiss="alert">&times;</button>
+								<strong>ERROR!</strong> {error}
+							</div>
+						);
+					})}
                     <h1>Edit an Event</h1>
                     <form method="post" onSubmit={this.handleSubmit} id="event-form">
+						<input type="hidden" name="author" value={sessionStorage.getItem("id")} />
+						<input type="hidden" name="status" value={this.state.event.status} />
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="form-group">

@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import {Redirect} from "react-router-dom";
 import { isAdmin } from "../utilities/CheckAdmin";
+import moment from "moment";
 require("bootstrap-datetime-picker");
 
 class CreateEvent extends React.Component {
@@ -22,8 +23,17 @@ class CreateEvent extends React.Component {
 		event.preventDefault();
 		const data = new URLSearchParams();
 		for (const pair of new FormData(event.target)) {
+			if(pair[0] === "start_date" || pair[0] === "end_date"){
+				pair[1] = moment(pair[1]).unix();
+			}
 			data.append(pair[0], pair[1]);
 		}
+
+		const creation_date = moment().unix();
+
+		data.append("creation_date", creation_date.toString());
+
+		console.log(data.toString());
 
 		const self = this;
 
@@ -44,6 +54,7 @@ class CreateEvent extends React.Component {
 			})
 			.catch(function (error) {
 				console.error(error);
+				alert(error.message);
 				window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 			});
 		}
@@ -53,13 +64,50 @@ class CreateEvent extends React.Component {
 		this.setState({
 			error: []
 		});
+
 		if(isNaN(data.get("price"))){
 			this.state.error.push("Please enter a valid price.");
 			this.setState({
 				error: this.state.error
 			});
 		}
-		return false;
+
+		if(data.get("title") === null){
+			this.state.error.push("Please enter a title.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("description") === null){
+			this.state.error.push("Please enter a description.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("location") === null){
+			this.state.error.push("Please enter a location.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("hashtag") === null || data.get("hashtag").includes("#")){
+			this.state.error.push("Please enter a tag (without the # symbol).");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("start_date") === null || data.get("end_date") === null){
+			this.state.error.push("Please enter a valid start and end date.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		return this.state.error.length === 0;
 	};
 
 	showErrors = () => {
@@ -109,6 +157,7 @@ class CreateEvent extends React.Component {
 					})}
 					<h1>Create a New Event</h1>
 					<form method="post" onSubmit={this.handleSubmit} id="event-form">
+						<input type="hidden" name="author" value={sessionStorage.getItem("id")} />
 						<div className="row">
 							<div className="col-md-12">
 								<div className="form-group">
@@ -138,7 +187,7 @@ class CreateEvent extends React.Component {
 									<label htmlFor="event_tag" className="control-label">Give your event a tag</label>
 									<div className="input-group">
 										<span className="input-group-addon"><span className="glyphicon glyphicon-tag"/></span>
-										<input type="text" className="form-control" name="tag" id="tag"
+										<input type="text" className="form-control" name="hashtag" id="tag"
 											   placeholder="Event Tag" required/>
 									</div>
 								</div>
@@ -158,7 +207,7 @@ class CreateEvent extends React.Component {
 									<label htmlFor="event_start_time" className="control-label">Start Time</label>
 									<div className="input-group date form_datetime"
 										 data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_start_time">
-										<input className="form-control" name="start_time" size="16" type="text" value=""
+										<input className="form-control" name="start_date" size="16" type="text" value=""
 											   readOnly required/>
 										<span className="input-group-addon"><span
 											className="glyphicon glyphicon-th"/></span>
@@ -169,7 +218,7 @@ class CreateEvent extends React.Component {
 									<label htmlFor="event_end_time" className="control-label">End Time</label>
 									<div className="input-group date form_datetime"
 										 data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_end_time">
-										<input className="form-control" name="end_time" size="16" type="text" value=""
+										<input className="form-control" name="end_date" size="16" type="text" value=""
 											   readOnly required/>
 										<span className="input-group-addon"><span
 											className="glyphicon glyphicon-th"/></span>
