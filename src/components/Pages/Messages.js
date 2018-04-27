@@ -3,7 +3,7 @@ import React from "react";
 class Messages extends React.Component {
 	constructor(props){
 		super(props);
-
+		
 		this.state = {
 			fetching: true,
 			messages: {}
@@ -36,7 +36,7 @@ class Messages extends React.Component {
 				</div>
 			);
 		} else {
-			if (this.state.messages.length > 0  && {map}) {
+			if (this.state.messages.length > 0) {
                 return(
                     <div className="panel-group">
                     {this.state.messages.map((message, index) => { // eslint-disable-line
