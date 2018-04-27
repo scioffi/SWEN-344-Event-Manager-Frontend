@@ -1,8 +1,16 @@
 import React from "react";
 
 class Messages extends React.Component {
+	constructor(props){
+		super(props);
+
+		this.state = {
+			fetching: true,
+			messages: {}
+		}
+	}
     componentDidMount() {
-		const url = `${window.events.hostname}/api/getMessageByUser/${sessionStorage.getItem("id")}`;
+		const url = `${window.events.hostname}/api/getMessageByUser?userId=${sessionStorage.getItem("id")}`;
 
 		fetch(url, {
 			method: "get"
@@ -28,7 +36,7 @@ class Messages extends React.Component {
 				</div>
 			);
 		} else {
-			if (this.state.messages.length > 0) {
+			if (this.state.messages.length > 0  && {map}) {
                 return(
                     <div className="panel-group">
                     {this.state.messages.map((message, index) => { // eslint-disable-line
