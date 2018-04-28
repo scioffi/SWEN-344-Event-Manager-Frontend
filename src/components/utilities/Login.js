@@ -1,27 +1,21 @@
 import React from "react"
 import { GoogleLogin } from 'react-google-login-component';
 
-export const checkLogin = (response) => {
-	if (response === undefined){ // Call from Code
-		if(sessionStorage.getItem("email") !== null){
-			return true;
-		} else {
-			return false;
-		}
-	} else { // Call from Google Auth
-		//console.log(response.w3);
-		sessionStorage.setItem("email", response.w3.U3);
-		sessionStorage.setItem("fname", response.w3.ofa);
-		sessionStorage.setItem("lname", response.w3.wea);
-		initialLogin();
+export const checkLogin = () => {
+	if(sessionStorage.getItem("email") !== null){
+		return true;
+	} else {
+		return false;
 	}
 };
-function initialLogin() {
+function initialLogin(self) {
 	const url = `${window.events.hostname}/api/initial_login`;
 	const data = new URLSearchParams();
+
 	data.append("email", sessionStorage.getItem("email"));
 	data.append("first_name", sessionStorage.getItem("fname"));
 	data.append("last_name", sessionStorage.getItem("lname"));
+
 	fetch(url, {
 		method: "post",
 		body: data
@@ -31,6 +25,10 @@ function initialLogin() {
 		//console.log(response);
 		sessionStorage.setItem("id", response.user_id);
 		sessionStorage.setItem("permission", response.permission);
+
+		self.setState({
+			loggedIn: true
+		});
 	})
 	.catch((error) => {
 		console.error(error);
@@ -51,11 +49,10 @@ export class Login extends React.Component{
 	
 	check(response){
 		if(response.w3 && response.w3.U3 !== undefined){
-			checkLogin(response);
-
-			this.setState({
-				loggedIn: true
-			});
+			sessionStorage.setItem("email", response.w3.U3);
+			sessionStorage.setItem("fname", response.w3.ofa);
+			sessionStorage.setItem("lname", response.w3.wea);
+			initialLogin(this);
 		}
 	}
 
