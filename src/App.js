@@ -11,7 +11,8 @@ import {
 	Messages,
 	Expired,
 	RegisterForEvents,
-	Admin
+	Admin,
+	ShareEvent
 } from "./components/Pages";
 import {Header} from "./components/Header";
 import Footer from "./components/Footer/Footer";
@@ -35,6 +36,7 @@ class App extends Component {
 							<Route path="/ListOfOrders" component={ListOfOrders} />
 							<Route path="/EventRegistration/:eventId" component={RegisterForEvents}/>
 							<Route path="/Admin" component={Admin}/>
+							<Route path="/ShareEvent/:eventId" component={ShareEvent}/>
 						</Switch>
 						<Footer/>
 					</div>
