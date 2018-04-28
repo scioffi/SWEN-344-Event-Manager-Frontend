@@ -99,7 +99,7 @@ class CreateEvent extends React.Component {
 			})
 		}
 
-		if(data.get("start_date") === null || data.get("end_date") === null){
+		if(data.get("start_date") === "" || data.get("end_date") === ""){
 			this.state.error.push("Please enter a valid start and end date.");
 			this.setState({
 				error: this.state.error
