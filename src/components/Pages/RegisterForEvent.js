@@ -87,11 +87,11 @@ class RegisterForEvent extends React.Component{
 				throw response
 			}
 
+			alert("You have successfully registered for this event!");
+
 			self.setState({
 				registrationSuccessful: true
 			});
-
-			alert("You have successfully registered for this event!");
 		})
 		.catch((error) => {
 			console.error(error);
