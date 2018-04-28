@@ -209,11 +209,11 @@ class EditEvent extends React.Component {
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label htmlFor="event_title" className="control-label">Event Title</label>
-                                    <input type="text" className="form-control input-lg" name="title" id="event_title" value={this.state.event.title} required />
+                                    <input type="text" className="form-control input-lg" name="title" id="event_title" defaultValue={this.state.event.title} required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="event_desc" className="control-label">Event Description</label>
-                                    <textarea className="form-control" name="description" id="description" value={this.state.event.description} rows="3" cols="100%" required />
+                                    <textarea className="form-control" name="description" id="description" defaultValue={this.state.event.description} rows="3" cols="100%" required />
                                 </div>
                             </div>
                         </div>
@@ -223,21 +223,21 @@ class EditEvent extends React.Component {
                                     <label htmlFor="event_location">Location</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-map-marker" /></span>
-                                        <input type="text" className="form-control" name="location" id="location" value={this.state.event.location} required />
+                                        <input type="text" className="form-control" name="location" id="location" defaultValue={this.state.event.location} required />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="event_tag" className="control-label">Give your event a tag</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-tag" /></span>
-                                        <input type="text" className="form-control" name="hashtag" id="tag" value={this.state.event.hashtag} required />
+                                        <input type="text" className="form-control" name="hashtag" id="tag" defaultValue={this.state.event.hashtag} required />
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="event_image" className="control-label">Event Image (URL) [Optional]</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-picture" /></span>
-                                        <input type="text" className="form-control" name="image" id="image" value={this.state.event.url} />
+                                        <input type="text" className="form-control" name="image" id="image" defaultValue={this.state.event.url} />
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@ class EditEvent extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="event_start_time" className="control-label">Start Time</label>
                                     <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_start_time">
-                                        <input className="form-control" name="start_time" size="16" type="text" value={start} readOnly required />
+                                        <input className="form-control" name="start_time" size="16" type="text" defaultValue={moment(this.state.event.start_date).format("MMMM Do YYYY - H:mm A")} readOnly required />
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                     </div>
                                     <input type="hidden" id="event_start_time" value="" />
@@ -253,7 +253,7 @@ class EditEvent extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="event_end_time" className="control-label">End Time</label>
                                     <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_end_time">
-                                        <input className="form-control" name="end_time" size="16" type="text" value={end} readOnly required />
+                                        <input className="form-control" name="end_time" size="16" type="text" defaultValue={moment(this.state.event.end_date).format("MMMM Do YYYY - H:mm A")} readOnly required />
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                     </div>
                                     <input type="hidden" id="event_end_time" value="" />
@@ -262,7 +262,7 @@ class EditEvent extends React.Component {
                                     <label htmlFor="event_price" className="control-label">Event Price</label>
                                     <div className="input-group">
                                         <span className="input-group-addon">$</span>
-                                        <input type="text" className="form-control" name="price" id="event_price" value={this.state.event.price} required />
+                                        <input type="text" className="form-control" name="price" id="event_price" defaultValue={this.state.event.price} required />
                                     </div>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@ import React from "react";
 import DateTime from "../utilities/DateTime";
 import {Glyphicon} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {isAdmin} from "../utilities/CheckAdmin";
 
 class Event extends React.Component {
 	constructor(props){
@@ -63,6 +64,11 @@ class Event extends React.Component {
 								
 								<a className="btn btn-default event-button" role="button">Share Event &raquo;</a>
                             	<Link to={`/EventRegistration/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Sign Up &raquo;</Link>
+								{isAdmin() &&
+									<Link to={`/EditEvent/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">
+										<Glyphicon glyph="pencil"/> Edit Event
+									</Link>
+								}
 								<br /> <hr />
 								<a className="twitter-timeline" href="https://twitter.com/hashtag/KrutzIsKool" data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
