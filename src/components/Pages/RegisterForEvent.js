@@ -71,9 +71,9 @@ class RegisterForEvent extends React.Component{
 
 		const self = this;
 
-		const data = new URLSearchParams()
+		const data = new URLSearchParams();
 
-		data.append("userId", 1);
+		data.append("userId", sessionStorage.getItem("id"));
 		data.append("eventId", this.props.match.params.eventId);
 		data.append("price", this.state.price);
 		data.append("currency",this.state.currency);
@@ -86,6 +86,8 @@ class RegisterForEvent extends React.Component{
 			if(response.status !== 200){
 				throw response
 			}
+
+			alert("You have successfully registered for this event!");
 
 			self.setState({
 				registrationSuccessful: true
@@ -100,7 +102,7 @@ class RegisterForEvent extends React.Component{
 	render(){
 		const Price = () => {
 			return (
-				<form className="form-inline">
+				<div className="form-inline">
 					<h4 style={{display: "inline", verticalAlign: "middle"}}>{this.state.price}&nbsp;&nbsp;</h4>
 					<select value={this.state.currency} name="price" className="form-control" onChange={this.changeCurrency}>
 						<option value="USD">USD</option>
@@ -110,7 +112,7 @@ class RegisterForEvent extends React.Component{
 						<option value="INR">Indian Rupee</option>
 						<option value="BTC">BitCoin</option>
 					</select>
-				</form>
+				</div>
 			);
 		};
 
@@ -139,32 +141,32 @@ class RegisterForEvent extends React.Component{
 								<div className='row'>
 									<div className='col-xs-12 form-group required'>
 										<label className='control-label'>Name on Card</label>
-										<input className='form-control' size='4' type='text' placeholder="ex. Betty White" />
+										<input className='form-control' size='4' type='text' placeholder="ex. Betty White" required />
 									</div>
 								</div>
 								<div className='row'>
 									<div className='col-xs-12 form-group card required'>
 										<label className='control-label'>Card Number</label>
-										<input autoComplete='off' className='form-control card-number' size='20' type='text' placeholder="ex. 4111-1111-1111-1111" />
+										<input autoComplete='off' className='form-control card-number' size='20' type='text' placeholder="ex. 4111-1111-1111-1111" required />
 									</div>
 								</div>
 								<div className='row'>
 									<div className='col-xs-4 form-group cvc required'>
 										<label className='control-label'>CVC</label>
-										<input autoComplete='off' className='form-control card-cvc' placeholder='ex. 311' size='4' type='text' />
+										<input autoComplete='off' className='form-control card-cvc' placeholder='ex. 311' size='4' type='text' required />
 									</div>
 									<div className='col-xs-4 form-group expiration required'>
 										<label className='control-label'>Expiration</label>
-										<input className='form-control card-expiry-month' placeholder='MM' size='2' type='text' />
+										<input className='form-control card-expiry-month' placeholder='MM' size='2' type='text' required />
 									</div>
 									<div className='col-xs-4 form-group expiration required'>
 										<label className='control-label'> </label>
-										<input className='form-control card-expiry-year' placeholder='YYYY' size='4' type='text' />
+										<input className='form-control card-expiry-year' placeholder='YYYY' size='4' type='text' required />
 									</div>
 								</div>
 							</div>
 						</div>
-							<br />
+						<br />
 						<RegisterButton />
 					</div>
 				);
@@ -184,9 +186,9 @@ class RegisterForEvent extends React.Component{
 				<div>
 					<form onSubmit={this.handleSubmit}>
 						<h2>Event Registration - {this.state.event.title}</h2>
-							<br />
-						<p><strong>Total Price: </strong> {this.state.event.price <= 0 ? "FREE!" : <Price />}</p>
-							<br />
+						<br />
+						<div><strong>Total Price: </strong> {this.state.event.price <= 0 ? "FREE!" : <Price />}</div>
+						<br />
 						<PaymentForm />
 					</form>
 				</div>
