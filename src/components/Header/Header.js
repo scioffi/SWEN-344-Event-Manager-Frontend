@@ -2,6 +2,7 @@ import React from "react";
 import ritLogo from "../../images/rit-logo.png";
 import {Link} from "react-router-dom";
 import {Glyphicon} from "react-bootstrap";
+import {isAdmin} from "../utilities/CheckAdmin";
 
 class Header extends React.Component {
     render() {
@@ -22,8 +23,11 @@ class Header extends React.Component {
                             <ul className="nav navbar-nav">
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link to="/EventList">Upcoming Events</Link></li>
-                                {sessionStorage.getItem("permission") === "admin" &&
+                                {isAdmin() &&
                                     <li><Link to="/CreateEvent">Create an Event</Link></li>
+                                }
+                                {isAdmin() &&
+                                    <li><Link to="/Admin">Admin Panel</Link></li>
                                 }
                                 <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                             </ul>
