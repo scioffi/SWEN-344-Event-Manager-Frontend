@@ -3,6 +3,7 @@ import ritLogo from "../../images/rit-logo.png";
 import {Link} from "react-router-dom";
 import {Glyphicon} from "react-bootstrap";
 import {isAdmin} from "../utilities/CheckAdmin";
+import { logout } from "../../components/utilities/Login.js";
 
 class Header extends React.Component {
     render() {
@@ -29,7 +30,8 @@ class Header extends React.Component {
                                 {isAdmin() &&
                                     <li><Link to="/Admin">Admin Panel</Link></li>
                                 }
-                                <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
+                                <li><Link onClick={logout} to="">Logout</Link></li>
+                                
                             </ul>
                         </div>
                     </div>
