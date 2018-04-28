@@ -51,11 +51,11 @@ export class Login extends React.Component{
 	
 	check(response){
 		if(response.w3 && response.w3.U3 !== undefined){
+			checkLogin(response);
+
 			this.setState({
 				loggedIn: true
 			});
-
-			checkLogin(response);
 		}
 	}
 
