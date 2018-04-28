@@ -12,11 +12,14 @@ class EditEvent extends React.Component {
 		this.state = {
             createSuccessful: false,
             fetching: true,
-			event: {}
+			event: {},
+			error: []
 		};
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+		this.validate = this.validate.bind(this);
+		this.showErrors = this.showErrors.bind(this);
 	}
 
     handleDelete = (event) => {
@@ -49,29 +52,102 @@ class EditEvent extends React.Component {
 		event.preventDefault();
         const data = new URLSearchParams();
         data.append("eventId", this.props.match.params.eventId);
+
 		for (const pair of new FormData(event.target)) {
+			if(pair[0] === "start_date" || pair[0] === "end_date"){
+				pair[1] = moment(pair[1], "MMMM DD YYYY - hh:mm a").unix();
+			}
 			data.append(pair[0], pair[1]);
+			console.log(pair[1]);
         }
+
 		const self = this;
 
-		fetch("http://localhost:8080/api/editEvent", {
-			method: "POST",
-			body: data
-		})
-		.then(function(response){
-			console.log(response);
-			if(response.status !== 200){
-				throw response;
-			}
+		if(this.validate(data) === true) {
+			fetch("http://localhost:8080/api/editEvent", {
+				method: "POST",
+				body: data
+			})
+			.then(function (response) {
+				console.log(response);
+				if (response.status !== 200) {
+					throw response;
+				}
 
-			self.setState({
-				createSuccessful: true
+				self.setState({
+					createSuccessful: true
+				});
+			})
+			.catch(function (error) {
+				console.error(error);
+				window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 			});
-		})
-		.catch(function(error) {
-			console.error(error);
-			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
+		}
+	};
+
+	validate = (data) => {
+		this.setState({
+			error: []
 		});
+
+		if(isNaN(data.get("price"))){
+			this.state.error.push("Please enter a valid price.");
+			this.setState({
+				error: this.state.error
+			});
+		}
+
+		if(data.get("title") === null){
+			this.state.error.push("Please enter a title.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("description") === null){
+			this.state.error.push("Please enter a description.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("location") === null){
+			this.state.error.push("Please enter a location.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(data.get("hashtag") === null || data.get("hashtag").includes("#")){
+			this.state.error.push("Please enter a tag (without the # symbol).");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		if(isNaN(data.get("start_date")) || isNaN(data.get("end_date"))){
+			this.state.error.push("Please enter a valid start and end date.");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
+		return this.state.error.length === 0;
+	};
+
+	showErrors = () => {
+		if(this.state.error.length > 0){
+			this.state.error.map((error, index) => {
+				return (
+					<div key={index} className="alert alert-danger">
+						<button type="button" className="close" data-dismiss="alert">&times;</button>
+						<strong>ERROR!</strong> {error}
+					</div>
+				)
+			});
+		} else {
+			return null;
+		}
 	};
 
 	componentDidMount() {
@@ -82,33 +158,33 @@ class EditEvent extends React.Component {
 		})
 		.then((res) => res.json())
 		.then((response) => {
-			console.log(response);
 			this.setState({
 				fetching: false,
 				event: response
+			});
+
+			$(document).ready(function(){
+				$('.form_datetime').datetimepicker({
+					weekStart: 1,
+					todayBtn:  1,
+					autoclose: 1,
+					todayHighlight: 1,
+					startView: 2,
+					forceParse: 0,
+					showMeridian: 1
+				});
+
 			});
 		})
 		.catch((error) => {
 			console.error(error);
 			// Should probably do some real error handling LOL
         });
-        
-		$(document).ready(function(){
-			$('.form_datetime').datetimepicker({
-				weekStart: 1,
-				todayBtn:  1,
-				autoclose: 1,
-				todayHighlight: 1,
-				startView: 2,
-				forceParse: 0,
-				showMeridian: 1
-			});
-		});
 	}
 
     render() {
-        const start = moment.unix(this.state.event.start_time).format("MMMM D YYYY - h:mm a");
-        const end = moment.unix(this.state.event.end_time).format("MMMM D YYYY - h:mm a");
+        const start = moment.unix(this.state.event.start_date).format("MMMM D YYYY - h:mm a");
+        const end = moment.unix(this.state.event.end_date).format("MMMM D YYYY - h:mm a");
 
         if (this.state.fetching === true && this.state.createSuccessful === false){
 			return (
@@ -123,8 +199,18 @@ class EditEvent extends React.Component {
         else{
             return (
                 <div id="page-event-form">
+					{this.state.error.length > 0 && this.state.error.map((error, index) => {
+						return (
+							<div key={index} className="alert alert-danger">
+								<button type="button" className="close" data-dismiss="alert">&times;</button>
+								<strong>ERROR!</strong> {error}
+							</div>
+						);
+					})}
                     <h1>Edit an Event</h1>
                     <form method="post" onSubmit={this.handleSubmit} id="event-form">
+						<input type="hidden" name="author" value={this.state.event.author} />
+						<input type="hidden" name="status" value={this.state.event.status} />
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="form-group">
@@ -157,7 +243,7 @@ class EditEvent extends React.Component {
                                     <label htmlFor="event_image" className="control-label">Event Image (URL) [Optional]</label>
                                     <div className="input-group">
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-picture" /></span>
-                                        <input type="text" className="form-control" name="image" id="image" defaultValue={this.state.event.url} />
+                                        <input type="text" className="form-control" name="image" id="image" value={this.state.event.url} />
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +251,7 @@ class EditEvent extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="event_start_time" className="control-label">Start Time</label>
                                     <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_start_time">
-                                        <input className="form-control" name="start_time" size="16" type="text" defaultValue={moment(this.state.event.start_date).format("MMMM Do YYYY - H:mm A")} readOnly required />
+                                        <input className="form-control" name="start_date" id="start_date" size="16" type="text" readOnly required value={start} />
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                     </div>
                                     <input type="hidden" id="event_start_time" value="" />
@@ -173,7 +259,7 @@ class EditEvent extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="event_end_time" className="control-label">End Time</label>
                                     <div className="input-group date form_datetime" data-date-format="MM dd yyyy - HH:ii p" data-link-field="event_end_time">
-                                        <input className="form-control" name="end_time" size="16" type="text" defaultValue={moment(this.state.event.end_date).format("MMMM Do YYYY - H:mm A")} readOnly required />
+                                        <input className="form-control" name="end_date" id="end_date" size="16" type="text" readOnly required value={end} />
                                         <span className="input-group-addon"><span className="glyphicon glyphicon-th" /></span>
                                     </div>
                                     <input type="hidden" id="event_end_time" value="" />
