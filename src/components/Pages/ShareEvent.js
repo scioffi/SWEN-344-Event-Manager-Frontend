@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import {Redirect} from "react-router-dom";
 
 class ShareEvent extends React.Component {
 	constructor(props){
