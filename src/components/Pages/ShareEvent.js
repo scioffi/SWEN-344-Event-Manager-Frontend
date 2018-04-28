@@ -8,9 +8,37 @@ class ShareEvent extends React.Component {
 			createSuccessful: false
 		};
 
-		//this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		//this.validate = this.validate.bind(this);
-	}
+    }
+    handleSubmit = (event) => {
+		event.preventDefault();
+        const data = new URLSearchParams();
+        data.append("eventId", this.props.match.params.eventId);
+		for (const pair of new FormData(event.target)) {
+			data.append(pair[0], pair[1]);
+        }
+		const self = this;
+
+		fetch("http://localhost:8080/api/addMessage", {
+			method: "POST",
+			body: data
+		})
+		.then(function(response){
+			console.log(response);
+			if(response.status !== 200){
+				throw response;
+			}
+
+			self.setState({
+				createSuccessful: true
+			});
+		})
+		.catch(function(error) {
+			console.error(error);
+			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
+		});
+	};
    
     render(){
         if (this.state.fetching === true){

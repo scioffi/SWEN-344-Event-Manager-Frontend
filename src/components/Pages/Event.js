@@ -69,6 +69,7 @@ class Event extends React.Component {
 										<Glyphicon glyph="pencil"/> Edit Event
 									</Link>
 								}
+								<Link to={`/ShareEvent/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Share Event &raquo;</Link>
 								<br /> <hr />
 								<a className="twitter-timeline" href="https://twitter.com/hashtag/KrutzIsKool" data-widget-id="968341462571274242">#{this.state.event.hashtag} Tweets</a>
 							</div>
