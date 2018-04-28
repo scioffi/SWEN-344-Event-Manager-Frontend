@@ -11,6 +11,13 @@ class ShareEvent extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		//this.validate = this.validate.bind(this);
     }
+    /*
+    var eventId = req.body.eventId;	
+        var fromUser = req.body.from_user;
+        var toUser = req.body.to_user;
+        var sharedTime = req.body.shared_time;
+        var message = req.body.message;
+    */
     handleSubmit = (event) => {
 		event.preventDefault();
         const data = new URLSearchParams();
