@@ -44,10 +44,10 @@ class ShareEvent extends React.Component {
 	};
    
     render(){
-        if (this.state.fetching === true){
+        if (this.state.createSuccessful === true){
 			return (
 				<div>
-					<h1>Loading Events...</h1>
+					return <Redirect to='/EventList' />;
 				</div>
 			);
 		} else {
