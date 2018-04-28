@@ -24,7 +24,7 @@ class CreateEvent extends React.Component {
 		const data = new URLSearchParams();
 		for (const pair of new FormData(event.target)) {
 			if(pair[0] === "start_date" || pair[0] === "end_date"){
-				pair[1] = moment(pair[1]).unix();
+				pair[1] = moment(pair[1], "MMMM DD YYYY - hh:mm a").unix();	
 			}
 			data.append(pair[0], pair[1]);
 		}

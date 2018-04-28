@@ -268,7 +268,7 @@ class EditEvent extends React.Component {
                                     <label htmlFor="event_price" className="control-label">Event Price</label>
                                     <div className="input-group">
                                         <span className="input-group-addon">$</span>
-                                        <input type="text" className="form-control" name="price" id="event_price" value={this.state.event.price} required />
+                                        <input type="text" className="form-control" name="price" id="event_price" defaultValue={this.state.event.price} required />
                                     </div>
                                 </div>
                             </div>
