@@ -9,6 +9,7 @@ import Messages from "./Messages";
 import Expired from "./Expired";
 import RegisterForEvents from "./RegisterForEvent";
 import Admin from "./Admin";
+import ShareEvent from "./ShareEvent";
 
 export {
     Homepage,
@@ -21,5 +22,6 @@ export {
     Messages,
     Expired,
     RegisterForEvents,
-    Admin
+    Admin,
+    ShareEvent
 };
