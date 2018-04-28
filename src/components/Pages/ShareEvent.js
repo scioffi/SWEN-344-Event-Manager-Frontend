@@ -22,6 +22,9 @@ class ShareEvent extends React.Component {
 		event.preventDefault();
         const data = new URLSearchParams();
         data.append("eventId", this.props.match.params.eventId);
+        console.log(sessionStorage.getItem("id"));
+        data.append("from_user", sessionStorage.getItem("id"));
+        data.append("shared_time", 1524680000);
 		for (const pair of new FormData(event.target)) {
 			data.append(pair[0], pair[1]);
         }
@@ -55,6 +58,13 @@ class ShareEvent extends React.Component {
 				</div>
 			);
 		} else {
+            /*
+            var eventId = req.body.eventId;	
+        var fromUser = req.body.from_user;
+        var toUser = req.body.to_user;
+        var sharedTime = req.body.shared_time;
+        var message = req.body.message;
+        */
             return (
                 <div id="page-event-form">
                     <h1>Share an Event</h1>
@@ -63,7 +73,7 @@ class ShareEvent extends React.Component {
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label htmlFor="event_title" className="control-label">Email of Person</label>
-                                    <input type="text" className="form-control input-lg" name="title" id="event_title" placeholder="Event Title" required />
+                                    <input type="text" className="form-control input-lg" name="to_user" id="to_user" placeholder="email" required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="event_desc" className="control-label">Message</label>
