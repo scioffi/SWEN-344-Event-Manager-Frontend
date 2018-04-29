@@ -76,8 +76,8 @@ class Admin extends React.Component {
 						{this.state.orders.map((order, index) => {
 							return (
 								<tr key={index}>
-									<td>{order.event_id}</td>
-									<td>{order.user_id}</td>
+									<td>{order.title}</td>
+									<td>{order.first_name} {order.last_name}</td>
 									<td>${order.price}</td>
 								</tr>
 							);
@@ -134,9 +134,8 @@ class Admin extends React.Component {
 			let confirmation = window.confirm(`Are you sure you want to delete ${first_name} ${last_name}'s account?`);
 
 			if(confirmation === true){
-				const data = {
-					userId: user_id
-				};
+				const data = new URLSearchParams();
+				data.append("userId", user_id);
 
 				fetch(`${window.events.hostname}/api/deleteUser`, {
 					method: "POST",
@@ -160,11 +159,9 @@ class Admin extends React.Component {
 			let confirmation = window.confirm(`Are you sure you want to change ${first_name} ${last_name} to an ${perm}?`);
 
 			if(confirmation === true){
-				const data = {
-					userId: user_id,
-					permission: perm
-				};
-
+				const data = new URLSearchParams();
+				data.append("userId", user_id);
+				data.append("permission", perm);
 				fetch(`${window.events.hostname}/api/changeUserPermission`, {
 					method: "POST",
 					body: data
