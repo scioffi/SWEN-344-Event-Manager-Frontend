@@ -90,7 +90,7 @@ class ShareEvent extends React.Component {
    
     render(){
     	if(this.state.getEmail === true && this.state.readyToSend === true){
-			{this.addMessage(this.state.data)}
+			this.addMessage(this.state.data);
 		}
 
         if (this.state.createSuccessful === true){
