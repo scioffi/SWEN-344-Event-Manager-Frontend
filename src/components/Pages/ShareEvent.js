@@ -2,17 +2,23 @@ import React from "react";
 import moment from "moment";
 import {Redirect} from "react-router-dom";
 
-function getId(email) {
+function getId(self, email) {
     fetch(`http://localhost:8080/api/getUserByEmail?email=${email}`, {
         method: "get"
     })
     .then((res) => res.json())
     .then((response) => {
         console.log("hello" + response.user_id);
+        self.setState({
+            getEmail: true
+        });
         return response.user_id;
     })
     .catch((error) => {
         console.error(error);
+        self.setState({
+            getEmail: true
+        });
         return -1;
         // Should probably do some real error handling LOL
     });
@@ -23,7 +29,8 @@ class ShareEvent extends React.Component {
         super(props);
         
 		this.state = {
-			createSuccessful: false
+            createSuccessful: false,
+            getEmail: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,13 +46,14 @@ class ShareEvent extends React.Component {
 		for (const pair of new FormData(event.target)) {
             console.log(pair[0]);
             if( pair[0] === "to_user"){
-                const id = getId(pair[1]);
-                if(id !== -1){
-                    console.log("Check" + id);
-                    data.append(pair[0], id);
+                const id = getId(this, pair[1]);
+                if(this.state.getEmail === true){
+                    if(id !== -1){
+                        console.log("Check" + id);
+                        data.append(pair[0], id);
+                    }
                 }
             }
-			
         }
 		const self = this;
 
