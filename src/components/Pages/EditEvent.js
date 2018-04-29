@@ -28,7 +28,7 @@ class EditEvent extends React.Component {
         data.append("eventId", this.props.match.params.eventId);
 		const self = this;
 
-		fetch("http://localhost:8080/api/cancelEvent", {
+		fetch(`${window.events.hostname}/api/cancelEvent`, {
 			method: "POST",
 			body: data
 		})
@@ -69,7 +69,7 @@ class EditEvent extends React.Component {
 		const self = this;
 
 		if(this.validate(data) === true) {
-			fetch("http://localhost:8080/api/editEvent", {
+			fetch(`${window.events.hostname}/api/editEvent`, {
 				method: "POST",
 				body: data
 			})
