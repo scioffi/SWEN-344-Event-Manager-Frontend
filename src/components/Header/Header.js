@@ -30,6 +30,7 @@ class Header extends React.Component {
                                 {isAdmin() &&
                                     <li><Link to="/Admin">Admin Panel</Link></li>
                                 }
+                                <li><Link to="/Messages"><Glyphicon glyph="envelope"/></Link></li>
                                 <li><Link onClick={logout} to="">Logout</Link></li>
                                 
                             </ul>
