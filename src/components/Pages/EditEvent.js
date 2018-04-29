@@ -28,7 +28,7 @@ class EditEvent extends React.Component {
         data.append("eventId", this.props.match.params.eventId);
 		const self = this;
 
-		fetch("http://localhost:8080/api/deleteEvent", {
+		fetch("http://localhost:8080/api/cancelEvent", {
 			method: "POST",
 			body: data
 		})
@@ -292,7 +292,7 @@ class EditEvent extends React.Component {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <input type="button" onClick={this.handleDelete} value="Delete Event" className="btn btn-danger btn-lg btn-block" />
+                                <input type="button" onClick={this.handleDelete} value="Cancel Event" className="btn btn-danger btn-lg btn-block" />
                             </div>
                         </div>
                     </form>
