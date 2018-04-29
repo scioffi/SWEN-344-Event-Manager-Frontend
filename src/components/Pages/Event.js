@@ -62,8 +62,18 @@ class Event extends React.Component {
 								<h4> <Glyphicon glyph="time"/> <b>Start Time:</b> <DateTime timestamp={this.state.event.start_date}/> </h4>
 								<h4> <Glyphicon glyph="time"/> <b>End Time:</b> <DateTime timestamp={this.state.event.end_date}/> </h4>
 								
-                            	<Link to={`/EventRegistration/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Sign Up &raquo;</Link>
-								<Link to={`/ShareEvent/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Share Event &raquo;</Link>
+								{this.state.event.status === "open" &&
+									<Link to={`/EventRegistration/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Sign Up &raquo;</Link>
+								}
+								{this.state.event.status === "open" &&
+									<Link to={`/ShareEvent/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">Share Event &raquo;</Link>
+								}
+								{this.state.event.status === "canceled" &&
+									<Link to="" className="btn btn-default event-button" role="button" disabled>Sign Up &raquo;</Link>
+								}
+								{this.state.event.status === "canceled" &&
+									<Link to="" className="btn btn-default event-button" role="button" disabled>Share Event &raquo;</Link>
+								}
 								{isAdmin() &&
 									<Link to={`/EditEvent/${this.props.match.params.eventId}`} className="btn btn-default event-button" role="button">
 										<Glyphicon glyph="pencil"/> Edit Event
