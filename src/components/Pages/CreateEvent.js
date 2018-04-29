@@ -11,7 +11,8 @@ class CreateEvent extends React.Component {
 
 		this.state = {
 			createSuccessful: false,
-			error: []
+			error: [],
+			response: undefined
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,15 +43,14 @@ class CreateEvent extends React.Component {
 				method: "POST",
 				body: data
 			})
-			.then(function (response) {
-				console.log(response);
-				if (response.status !== 200) {
-					throw response;
+			.then(response => response.json())
+			.then((response) => {
+				if(typeof response !== "string") {
+					self.setState({
+						response: response,
+						createSuccessful: true
+					});
 				}
-
-				self.setState({
-					createSuccessful: true
-				});
 			})
 			.catch(function (error) {
 				console.error(error);
@@ -139,8 +139,8 @@ class CreateEvent extends React.Component {
 	}
 
     render() {
-		if(this.state.createSuccessful){
-			return <Redirect to='/EventList' />;
+		if(this.state.createSuccessful && this.state.response !== undefined){
+			return <Redirect to={`/Event/${this.state.response.id}`} />;
 		}
 
 		if(isAdmin()) {
