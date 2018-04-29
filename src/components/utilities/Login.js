@@ -83,3 +83,7 @@ export class Login extends React.Component{
 		}
 	}
 }
+export const logout = (response) => {
+	sessionStorage.clear();
+	window.location = "/";
+};
