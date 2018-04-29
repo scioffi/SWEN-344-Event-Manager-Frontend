@@ -2,6 +2,22 @@ import React from "react";
 import moment from "moment";
 import {Redirect} from "react-router-dom";
 
+function getId(email) {
+    fetch(`http://localhost:8080/api/getUserByEmail?email=${email}`, {
+        method: "get"
+    })
+    .then((res) => res.json())
+    .then((response) => {
+        console.log("hello" + response.user_id);
+        return response.user_id;
+    })
+    .catch((error) => {
+        console.error(error);
+        return -1;
+        // Should probably do some real error handling LOL
+    });
+}
+
 class ShareEvent extends React.Component {
 	constructor(props){
         super(props);
@@ -12,6 +28,7 @@ class ShareEvent extends React.Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
     handleSubmit = (event) => {
 		event.preventDefault();
         const data = new URLSearchParams();
@@ -20,7 +37,15 @@ class ShareEvent extends React.Component {
         data.append("from_user", sessionStorage.getItem("id"));
         data.append("shared_time", moment("1524680000", "MMMM DD YYYY - hh:mm a").unix());
 		for (const pair of new FormData(event.target)) {
-			data.append(pair[0], pair[1]);
+            console.log(pair[0]);
+            if( pair[0] === "to_user"){
+                const id = getId(pair[1]);
+                if(id !== -1){
+                    console.log("Check" + id);
+                    data.append(pair[0], id);
+                }
+            }
+			
         }
 		const self = this;
 
