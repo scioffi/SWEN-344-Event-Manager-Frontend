@@ -7,24 +7,25 @@ class ShareEvent extends React.Component {
         super(props);
         
 		this.state = {
-			createSuccessful: false
+            createSuccessful: false,
+            getEmail: false,
+			to_user_id: 0,
+			readyToSend: false,
+			data: {},
+			error: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.addMessage = this.addMessage.bind(this);
+		this.invalidEmail = this.invalidEmail.bind(this);
     }
-    handleSubmit = (event) => {
-		event.preventDefault();
-        const data = new URLSearchParams();
-        data.append("eventId", this.props.match.params.eventId);
-        console.log(sessionStorage.getItem("id"));
-        data.append("from_user", sessionStorage.getItem("id"));
-        data.append("shared_time", moment("1524680000", "MMMM DD YYYY - hh:mm a").unix());
-		for (const pair of new FormData(event.target)) {
-			data.append(pair[0], pair[1]);
-        }
+
+    addMessage(data){
+		data.set("to_user", this.state.to_user_id);
+
 		const self = this;
 
-		fetch("http://localhost:8080/api/addMessage", {
+		fetch(`${window.events.hostname}/api/addMessage`, {
 			method: "POST",
 			body: data
 		})
@@ -42,18 +43,66 @@ class ShareEvent extends React.Component {
 			console.error(error);
 			window.alert("A submit error occurred. Check to make sure all required fields have been filled."); // DEBUG ONLY
 		});
+	}
+    
+    handleSubmit = (event) => {
+		event.preventDefault();
+        const data = new URLSearchParams();
+        data.append("eventId", this.props.match.params.eventId);
+
+        data.append("from_user", sessionStorage.getItem("id"));
+        data.append("shared_time", moment("1524680000", "MMMM DD YYYY - hh:mm a").unix());
+		for (const pair of new FormData(event.target)) {
+			data.append(pair[0], pair[1]);
+        }
+
+        const self = this;
+
+		fetch(`${window.events.hostname}/api/getUserByEmail?email=${data.get("to_user")}`, {
+			method: "get"
+		})
+		.then((res) => res.json())
+		.then((response) => {
+			alert("Invite Sent!");
+			self.setState({
+				getEmail: true,
+				to_user_id: response.user_id,
+				readyToSend: true,
+				data: data
+			});
+		})
+		.catch((error) => {
+			console.error(error);
+			self.setState({
+				error: true
+			});
+		});
 	};
+
+	invalidEmail(){
+		return (
+			<div className="alert alert-danger">
+				<button type="button" className="close" data-dismiss="alert">&times;</button>
+				<strong>ERROR!</strong> That email is not associated with any user in our database.
+			</div>
+		);
+	}
    
     render(){
+    	if(this.state.getEmail === true && this.state.readyToSend === true){
+			{this.addMessage(this.state.data)}
+		}
+
         if (this.state.createSuccessful === true){
 			return (
-				<div>
-					return <Redirect to='/EventList' />;
-				</div>
+				<Redirect to='/EventList' />
 			);
 		} else {
             return (
                 <div id="page-event-form">
+					{this.state.error === true &&
+						this.invalidEmail()
+					}
                     <h1>Share an Event</h1>
                     <form method="post" onSubmit={this.handleSubmit} id="event-form">
                         <div className="row">
