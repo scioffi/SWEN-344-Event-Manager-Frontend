@@ -22,6 +22,11 @@ class CreateEvent extends React.Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+
+		this.setState({
+			error: []
+		});
+
 		const data = new URLSearchParams();
 		for (const pair of new FormData(event.target)) {
 			if(pair[0] === "start_date" || pair[0] === "end_date"){
@@ -60,10 +65,6 @@ class CreateEvent extends React.Component {
 	};
 
 	validate = (data) => {
-		this.setState({
-			error: []
-		});
-
 		if(isNaN(data.get("price"))){
 			this.state.error.push("Please enter a valid price.");
 			this.setState({
@@ -106,6 +107,16 @@ class CreateEvent extends React.Component {
 			})
 		}
 
+		const start_date = moment.unix(data.get("start_date"));
+		const end_date = moment.unix(data.get("end_date"));
+
+		if(start_date.isAfter(end_date)){
+			this.state.error.push("End time is before Start time");
+			this.setState({
+				error: this.state.error
+			})
+		}
+
 		return this.state.error.length === 0;
 	};
 
@@ -133,7 +144,8 @@ class CreateEvent extends React.Component {
 				todayHighlight: 1,
 				startView: 2,
 				forceParse: 0,
-				showMeridian: 1
+				showMeridian: 1,
+				startDate: new Date()
 			});
 		});
 	}
